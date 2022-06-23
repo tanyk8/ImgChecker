@@ -1,0 +1,293 @@
+﻿<Window x:Class="ImgChecker.Menu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImgChecker"
+        xmlns:viewModel="clr-namespace:ImgChecker.MVVM.ViewModel"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Image Checker" Height="850" Width="1305"
+        Name="SegregatorMainMenuWindow">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <!--Projects #begin-->
+        <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type RadioButton}"
+           x:Key="MenuButton_Projects_Theme">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+
+                                <TextBlock Style="{StaticResource TextBlockStyle}" 
+                                       Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="70,0,0,0"
+                                       FontFamily="/Fonts/#Poppins"/>
+
+                                <Image Style="{StaticResource ProjectsIconStyle}" 
+                                       HorizontalAlignment="Center" 
+                                       Width="20" 
+                                       Margin="0,0,180,0">
+                                    <!--
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelWidth="300" UriSource="/Resources/cube-gray.png" />
+                                    </Image.Source>
+                                    -->
+                                </Image>
+
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="#424242" />
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#AEAEAE"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Foreground" Value="#CC9900"/>
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="RadioButton">
+                                <Border BorderBrush="#CC9900" BorderThickness="2,0,0,0">
+                                    <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+
+                                        <TextBlock Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="70,0,0,0"
+                                       FontFamily="/Fonts/#Poppins"/>
+
+                                        <Image HorizontalAlignment="Center" 
+                                       Width="20" 
+                                       Margin="0,0,180,0">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelWidth="300" UriSource="/Resources/cube-blue-new.png" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Projects #end-->
+
+
+        <!--Learn #begin-->
+        <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type RadioButton}"
+           x:Key="MenuButton_Learn_Theme">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+
+                                <TextBlock Style="{StaticResource TextBlockStyle}"
+                                       Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="70,0,0,0"
+                                       FontFamily="/Fonts/#Poppins"/>
+
+                                <Image Style="{StaticResource LearnIconStyle}" 
+                                       HorizontalAlignment="Center" 
+                                       Width="20" 
+                                       Margin="0,0,180,0">
+                                    <!--
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelWidth="300" UriSource="/Resources/grad-gray.png" />
+                                    </Image.Source>
+                                    -->
+                                </Image>
+
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="#424242" />
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#AEAEAE"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Foreground" Value="#CC9900"/>
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="RadioButton">
+                                <Border BorderBrush="#CC9900" BorderThickness="2,0,0,0">
+                                    <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+
+                                        <TextBlock Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="70,0,0,0"
+                                       FontFamily="/Fonts/#Poppins"/>
+
+                                        <Image HorizontalAlignment="Center" 
+                                       Width="20" 
+                                       Margin="0,0,180,0">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelWidth="300" UriSource="/Resources/grad-blue-new.png" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Learn #end-->
+
+
+        <!--Settings #begin-->
+        <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type RadioButton}"
+           x:Key="MenuButton_Settings_Theme">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+
+                                <TextBlock Style="{StaticResource TextBlockStyle}"
+                                       Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="70,0,0,0"
+                                       FontFamily="/Fonts/#Poppins"/>
+
+                                <Image Style="{StaticResource SettingsIconStyle}" 
+                                       HorizontalAlignment="Center" 
+                                       Width="20" 
+                                       Margin="0,0,180,0">
+                                    <!--
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelWidth="300" UriSource="/Resources/settings-gray.png" />
+                                    </Image.Source>
+                                    -->
+                                </Image>
+
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="#424242" />
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#AEAEAE"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Foreground" Value="#CC9900"/>
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="RadioButton">
+                                <Border BorderBrush="#CC9900" BorderThickness="2,0,0,0">
+                                    <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+
+                                        <TextBlock Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="70,0,0,0"
+                                       FontFamily="/Fonts/#Poppins"/>
+
+                                        <Image HorizontalAlignment="Center" 
+                                       Width="20" 
+                                       Margin="0,0,180,0">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelWidth="300" UriSource="/Resources/settings-blue-new.png" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Settings #end-->
+    </Window.Resources>
+
+    <Grid Style="{StaticResource BrightGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1055"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1" 
+                  Margin="0,44,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="44*"/>
+                    <ColumnDefinition Width="81*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.ColumnSpan="2">
+                    <RadioButton Content="Projects"
+                             Height="60"
+                             FontSize="19"
+                             Style="{StaticResource MenuButton_Projects_Theme}"
+                             IsChecked="True"
+                             Command="{Binding ProjectsViewCommand}"/>
+                    <!--
+                    <RadioButton Content="Learn"
+                             Height="60"
+                             Margin="0,10,0,0"
+                             FontSize="19" 
+                             Style="{StaticResource MenuButton_Learn_Theme}"
+                             Command="{Binding LearnViewCommand}"/>
+                    -->
+                    
+                    <RadioButton Content="Theme"
+                             Height="60"
+                             Margin="0,10,0,0"
+                             FontSize="19"
+                             Style="{StaticResource MenuButton_Settings_Theme}"
+                             Command="{Binding SettingsViewCommand}"/>
+                </StackPanel>
+            </Grid>
+
+            <ContentControl Grid.Column="0"
+                            Content="{Binding CurrentView}"/>
+
+        </Grid>
+    </Grid>
+</Window>

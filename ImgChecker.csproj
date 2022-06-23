@@ -1,0 +1,136 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\add.png" />
+    <None Remove="Resources\alert-red.png" />
+    <None Remove="Resources\close-24.png" />
+    <None Remove="Resources\cube-big-white.png" />
+    <None Remove="Resources\cube-big.png" />
+    <None Remove="Resources\cube-blue-new.png" />
+    <None Remove="Resources\cube-blue.png" />
+    <None Remove="Resources\cube-gray.png" />
+    <None Remove="Resources\cube-white.png" />
+    <None Remove="Resources\delBtn.png" />
+    <None Remove="Resources\folder-gray.png" />
+    <None Remove="Resources\folder-white.png" />
+    <None Remove="Resources\go-back.png" />
+    <None Remove="Resources\grad-blue-new.png" />
+    <None Remove="Resources\grad-blue.png" />
+    <None Remove="Resources\grad-gray.png" />
+    <None Remove="Resources\grad-white-new.png" />
+    <None Remove="Resources\home.png" />
+    <None Remove="Resources\ic_folder_24px_2.png" />
+    <None Remove="Resources\imagemissing.png" />
+    <None Remove="Resources\ImgLearn\learn1.jpg" />
+    <None Remove="Resources\ImgLearn\learn10.jpg" />
+    <None Remove="Resources\ImgLearn\learn11.jpg" />
+    <None Remove="Resources\ImgLearn\learn12.jpg" />
+    <None Remove="Resources\ImgLearn\learn13.jpg" />
+    <None Remove="Resources\ImgLearn\learn14.jpg" />
+    <None Remove="Resources\ImgLearn\learn2.jpg" />
+    <None Remove="Resources\ImgLearn\learn3.jpg" />
+    <None Remove="Resources\ImgLearn\learn4.jpg" />
+    <None Remove="Resources\ImgLearn\learn5.jpg" />
+    <None Remove="Resources\ImgLearn\learn6.jpg" />
+    <None Remove="Resources\ImgLearn\learn7.jpg" />
+    <None Remove="Resources\ImgLearn\learn8.jpg" />
+    <None Remove="Resources\ImgLearn\learn9.jpg" />
+    <None Remove="Resources\ImgLearn\overalllearn.jpg" />
+    <None Remove="Resources\menu-vertical-dark.png" />
+    <None Remove="Resources\menu-vertical-light.png" />
+    <None Remove="Resources\noimg.png" />
+    <None Remove="Resources\open-folder.png" />
+    <None Remove="Resources\pic-folder.png" />
+    <None Remove="Resources\question-gray.png" />
+    <None Remove="Resources\question-white.png" />
+    <None Remove="Resources\search-24.png" />
+    <None Remove="Resources\search-48.png" />
+    <None Remove="Resources\settings-blue-new.png" />
+    <None Remove="Resources\settings-blue.png" />
+    <None Remove="Resources\settings-gray.png" />
+    <None Remove="Resources\settings-white-new.png" />
+    <None Remove="Resources\sort-down-24.png" />
+    <None Remove="Resources\sort-up-24.png" />
+    <None Remove="Resources\upload.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\add.png" />
+    <Resource Include="Resources\alert-red.png" />
+    <Resource Include="Resources\close-24.png" />
+    <Resource Include="Resources\cube-big-white.png" />
+    <Resource Include="Resources\cube-big.png" />
+    <Resource Include="Resources\cube-blue-new.png" />
+    <Resource Include="Resources\cube-blue.png" />
+    <Resource Include="Resources\cube-gray.png" />
+    <Resource Include="Resources\cube-white.png" />
+    <Resource Include="Resources\delBtn.png" />
+    <Resource Include="Resources\folder-gray.png" />
+    <Resource Include="Resources\folder-white.png" />
+    <Resource Include="Resources\go-back.png" />
+    <Resource Include="Resources\grad-blue-new.png" />
+    <Resource Include="Resources\grad-blue.png" />
+    <Resource Include="Resources\grad-gray.png" />
+    <Resource Include="Resources\grad-white-new.png" />
+    <Resource Include="Resources\home.png" />
+    <Resource Include="Resources\ic_folder_24px_2.png" />
+    <Resource Include="Resources\imagemissing.png" />
+    <Resource Include="Resources\ImgLearn\learn6.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ImgLearn\learn1.jpg" />
+    <Resource Include="Resources\ImgLearn\learn10.jpg" />
+    <Resource Include="Resources\ImgLearn\learn11.jpg" />
+    <Resource Include="Resources\ImgLearn\learn12.jpg" />
+    <Resource Include="Resources\ImgLearn\learn13.jpg" />
+    <Resource Include="Resources\ImgLearn\learn14.jpg" />
+    <Resource Include="Resources\ImgLearn\learn2.jpg" />
+    <Resource Include="Resources\ImgLearn\learn3.jpg" />
+    <Resource Include="Resources\ImgLearn\learn4.jpg" />
+    <Resource Include="Resources\ImgLearn\learn5.jpg" />
+    <Resource Include="Resources\ImgLearn\learn7.jpg" />
+    <Resource Include="Resources\ImgLearn\learn8.jpg" />
+    <Resource Include="Resources\ImgLearn\learn9.jpg" />
+    <Resource Include="Resources\ImgLearn\overalllearn.jpg" />
+    <Resource Include="Resources\menu-vertical-dark.png" />
+    <Resource Include="Resources\menu-vertical-light.png" />
+    <Resource Include="Resources\noimg.png" />
+    <Resource Include="Resources\open-folder.png" />
+    <Resource Include="Resources\pic-folder.png" />
+    <Resource Include="Resources\question-gray.png" />
+    <Resource Include="Resources\question-white.png" />
+    <Resource Include="Resources\search-24.png" />
+    <Resource Include="Resources\search-48.png" />
+    <Resource Include="Resources\settings-blue-new.png" />
+    <Resource Include="Resources\settings-blue.png" />
+    <Resource Include="Resources\settings-gray.png" />
+    <Resource Include="Resources\settings-white-new.png" />
+    <Resource Include="Resources\sort-down-24.png" />
+    <Resource Include="Resources\sort-up-24.png" />
+    <Resource Include="Resources\upload.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
