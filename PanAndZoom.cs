@@ -60,12 +60,12 @@ namespace ImgChecker
         {
             if (child != null)
             {
-                // reset zoom
+                //reset zoom
                 var st = GetScaleTransform(child);
                 st.ScaleX = 1.0;
                 st.ScaleY = 1.0;
 
-                // reset pan
+                //reset pan
                 var tt = GetTranslateTransform(child);
                 tt.X = 0.0;
                 tt.Y = 0.0;
