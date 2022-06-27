@@ -120,7 +120,15 @@ namespace ImgChecker
 
         }
 
+        private void returnhome_Click(object sender, RoutedEventArgs e)
+        {
+            saveFile();
 
+            Menu opnmenu = new Menu();
+            opnmenu.Show();
+
+            this.Close();
+        }
 
     }
 }
