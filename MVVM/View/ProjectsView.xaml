@@ -1,4 +1,5 @@
-﻿<!-- Testing -->
+﻿<!-- Testing 1 -->
+<!-- Testing 2 -->
 
 <UserControl x:Class="ImgChecker.MVVM.View.ProjectsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
