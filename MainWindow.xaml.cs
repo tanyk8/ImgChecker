@@ -130,5 +130,65 @@ namespace ImgChecker
             this.Close();
         }
 
+        public void handleImageMissing(string selectedImage)
+        {
+            //disable and hide revert, pass and reject
+            pfBtn = (Button)this.FindName("btnPass");
+            pfBtn.IsEnabled = false;
+            pfBtn = (Button)this.FindName("btnReject");
+            pfBtn.IsEnabled = false;
+            pfBtn = (Button)this.FindName("btnRevert");
+            pfBtn.IsEnabled = false;
+            btnPass.Visibility = System.Windows.Visibility.Collapsed;
+            btnReject.Visibility = System.Windows.Visibility.Collapsed;
+            btnRevert.Visibility = System.Windows.Visibility.Collapsed;
+            //show button
+            pfBtn = (Button)this.FindName("btnInfo");
+            pfBtn.IsEnabled = true;
+            btnInfo.Visibility = System.Windows.Visibility.Visible;
+
+
+
+            if (!selectedImage.Contains("P") && !selectedImage.Contains("F"))
+            {
+                position = Int32.Parse(selectedImage.Substring(3));
+            }
+            else if (selectedImage.Contains("P"))
+            {
+                position = Int32.Parse(selectedImage.Substring(4));
+            }
+            else if (selectedImage.Contains("F"))
+            {
+                position = Int32.Parse(selectedImage.Substring(4));
+            }
+            tabname = currTabName;
+            if (currTabName == "All")
+            {
+                pagenum = currAllPage;
+                activemissingfile = "uploaded\\" + imageFiles.ElementAt(pagenum * 10 - 10 + position - 1);
+            }
+            else if (currTabName == "Pass")
+            {
+                pagenum = currPassPage;
+                activemissingfile = "pass\\" + pImageFiles.ElementAt(pImageFiles.Count - position + (pagenum * 10 - 10));
+            }
+            else if (currTabName == "Reject")
+            {
+
+                pagenum = currRejectPage;
+
+                if (currRejectFolder != null || currRejectFolder.Length == 0)
+                {
+                    rejectName = currRejectFolder;
+                }
+                activemissingfile = "reject\\" + currRejectFolder + "\\" + findRejectFileName(pagenum, position, rejectName);
+            }
+            selImg = (Image)this.FindName("imgi");
+            selImg.Source = setImgSource("pack://application:,,,/Resources/imagemissing.png", "main");
+            selImg = (Image)this.FindName(selectedImage);
+            selImg.Source = setImgSource("pack://application:,,,/Resources/imagemissing.png", "sub");
+            checkActive();
+        }
+
     }
 }
