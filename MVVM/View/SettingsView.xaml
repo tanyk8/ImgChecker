@@ -121,3 +121,46 @@
         </Style>
         <!-- DarkModeButtonStyle #end -->
     </UserControl.Resources>
+
+    <Grid Style="{StaticResource DullGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="300*"/>
+        </Grid.RowDefinitions>
+
+        <Label Style="{StaticResource LabelStyle}" 
+               Content="Set Your Preferred Theme"
+               FontSize="30"
+               FontWeight="Bold"
+               Grid.Row="0" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"/>
+
+        <UniformGrid Columns="2" Grid.Row="1">
+            <Viewbox Height="40" HorizontalAlignment="Right">
+                <Button Style="{DynamicResource LightModeButtonStyle}" x:Name="LightMode" 
+                        Background="#FFE8E8E8"
+                        Foreground="#FF1E1E1E"
+                        Content=" Light " 
+                        FontSize="18"                            
+                        Padding="25,5,25,5"
+                        Margin="0,0,30,0"
+                        BorderThickness="0"
+                        Click="LightMode_Click"/>
+            </Viewbox>
+            <Viewbox Height="40" HorizontalAlignment="Left">
+                <Button Style="{DynamicResource DarkModeButtonStyle}" x:Name="DarkMode" 
+                        Background="#FF252526"
+                        Foreground="#FFF1F1F1"
+                        Content=" Dark " 
+                        FontSize="18" 
+                        Padding="25,5,25,5"
+                        Margin="30,0,0,0"
+                        BorderThickness="0"
+                        Click="DarkMode_Click"/>
+            </Viewbox>
+        </UniformGrid>
+
+    </Grid>
+</UserControl>
