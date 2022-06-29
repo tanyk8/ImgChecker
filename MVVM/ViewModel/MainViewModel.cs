@@ -27,7 +27,6 @@ namespace ImgChecker.MVVM.ViewModel
         public MainViewModel()
         {
             ProjectsVM = new ProjectsViewModel();
-            //LearnVM = new LearnViewModel();
             SettingsVM = new SettingsViewModel();
 
             CurrentView = ProjectsVM;
@@ -36,14 +35,6 @@ namespace ImgChecker.MVVM.ViewModel
             {
                 CurrentView = ProjectsVM;
             });
-
-            /*
-            LearnViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = LearnVM;
-            });
-
-            */
 
             SettingsViewCommand = new RelayCommand(o =>
             {
