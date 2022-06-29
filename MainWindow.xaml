@@ -383,3 +383,1239 @@
 
 
     </Window.Resources>
+
+    <Grid Style="{StaticResource DullGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="500*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Style="{StaticResource BrightGridStyle}" Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="450*"/>
+                <RowDefinition Height="50*"/>
+            </Grid.RowDefinitions>
+
+
+            <local:PanAndZoom Style="{StaticResource BorderStyle2}" x:Name="border" ClipToBounds="True" Margin="30,30,30,30" CornerRadius="30">
+                <Image x:Name="imgi" Source="/Resources/noimg.png" MaxHeight="1080" MaxWidth="1920"/>
+            </local:PanAndZoom>
+
+            <Label Grid.Row="1">
+                <TextBlock Style="{StaticResource TextBlockStyle}" Text="Upload new image"  Margin="30,10,0,0" FontSize="15"/>
+            </Label>
+
+            <Button Template="{DynamicResource GeneralButtonStyle}"
+                        Style="{StaticResource MainButton}"
+                        Grid.Row="1"
+                        BorderThickness="0"
+                        Background="#CC9900"
+                        Height="30"
+                        Margin="165,8,0,30"
+                        Click="btnUpload_Click" 
+                        Panel.ZIndex="1" HorizontalAlignment="Left" Width="50">
+                <DockPanel Margin="3">
+                    <Image Source="/Resources/upload.png"/>
+                </DockPanel>
+            </Button>
+
+            <Label Grid.Row="1">
+                <TextBlock Style="{StaticResource TextBlockStyle}" Text="Add new reject category" Margin="240,10,0,0" FontSize="15"/>
+            </Label>
+
+            <Button Template="{DynamicResource GeneralButtonStyle}"
+                        Style="{StaticResource MainButton}"  
+                        Grid.Row="1"
+                        BorderThickness="0"
+                        Background="#CC9900"
+                        Height="30" 
+                        Margin="414,8,0,30" 
+                        Panel.ZIndex="1"
+                        Click="btnAddReject_Click" HorizontalAlignment="Left" Width="50">
+                <DockPanel Margin="3">
+                    <Image Source="/Resources/add.png"/>
+                </DockPanel>
+            </Button>
+
+            <Label Grid.Row="1">
+                <TextBlock Style="{StaticResource TextBlockStyle}" Text="|" Foreground="Silver" Margin="500,-5,0,0" FontSize="35"/>
+            </Label>
+
+            <Label Grid.Row="1">
+                <TextBlock Style="{StaticResource TextBlockStyle}" Text="Delete current image" Margin="540,10,0,0" FontSize="15"/>
+            </Label>
+
+            <Button Template="{DynamicResource RejectButtonStyle}"
+                    Style="{StaticResource MainButton}" 
+                    BorderThickness="0"
+                    Background="#EB212E"
+                    Foreground="#FFF1F1F1"
+                    FontSize="18"
+                    FontWeight="Medium" 
+                    Grid.Row="1" 
+                    Padding="10,10,10,10"
+                    Margin="690,6,0,26" 
+                    Click="btnDeleteImg_Click" 
+                    x:Name="btnDeleteImg" HorizontalAlignment="Left" Width="60">
+                <DockPanel>
+                    <Image Source="/Resources/delBtn.png"/>
+                </DockPanel>
+            </Button>
+        </Grid>
+
+        <Label Style="{StaticResource LabelStyle}" 
+               Content="Project Name" 
+               Grid.Column="0"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               FontWeight="DemiBold"
+               FontSize="35"
+               x:Name="projectnamelabel"/>
+
+        <Button Template="{DynamicResource GeneralButtonStyle}"
+                Style="{StaticResource MainButton}"
+                BorderThickness="0"
+                Background="#CC9900"
+                Height="40" 
+                Width="60"
+                Grid.Column="0" 
+                Margin="30,0,0,0"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Click="returnhome_Click">
+            <DockPanel Margin="3">
+                <Image Source="/Resources/home.png"/>
+            </DockPanel>
+        </Button>
+
+        <GroupBox Style="{StaticResource GroupBoxStyle}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  Margin="0,60,0,0"
+                  Height="280"
+                  Width="235"
+                  Grid.Column="1"
+                  Grid.Row="1">
+            <!--
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource TextBlockStyle}" Text=" Progress Tracker " FontSize="20" FontWeight="DemiBold"/>
+            </GroupBox.Header>
+            -->
+
+            <Grid HorizontalAlignment="Center"
+                  Height="250"
+                  VerticalAlignment="Center"
+                  Width="230">
+                <Label Style="{StaticResource LabelStyle}" Content="Status" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Separator Margin="20,50,20,0" VerticalAlignment="Top"/>
+
+                <Label Style="{StaticResource LabelStyle}" Content="Overall Progress : 0 / 0" FontSize="15" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="20,70,0,0" x:Name="progressCount"/>
+                <Label Style="{StaticResource LabelStyle}" Content="Total Pass Count : 0" FontSize="15" Grid.Column="2" HorizontalAlignment="Left" Margin="20,110,0,0" Grid.Row="1" VerticalAlignment="Top" x:Name="passCount"/>
+                <Label Style="{StaticResource LabelStyle}" Content="Total Reject Count : 0" FontSize="15" Grid.Column="2" HorizontalAlignment="Left" Margin="20,130,0,0" Grid.Row="1" VerticalAlignment="Top" x:Name="rejectCount"/>
+
+                <Button Template="{DynamicResource GeneralButtonStyle}"
+                        Style="{StaticResource MainButton}"
+                        Content="Summary" 
+                        BorderThickness="0"
+                        Background="#CC9900"
+                        Foreground="#FFF1F1F1"
+                        FontSize="15"
+                        FontWeight="Medium"
+                        Height="30" 
+                        Width="200" 
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom" 
+                        Margin="0,0,0,20"
+                        Grid.Row="1" 
+                        Click="btnShowSummary_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <Button Template="{DynamicResource PassButtonStyle}" 
+                    Style="{StaticResource MainButton}" 
+                    Content="PASS" 
+                    BorderThickness="0"
+                    Background="#44D62C"
+                    Foreground="#FFF1F1F1"
+                    FontSize="23"
+                    FontWeight="Medium"
+                    HorizontalAlignment="Center" 
+                    Grid.Row="1"  
+                    Grid.Column="1"
+                    VerticalAlignment="Center" 
+                    Padding="25,5,25,5" 
+                    Margin="0,120,0,0" 
+                    Height="50" 
+                    Width="240" 
+                    Click="btnPass_Click" 
+                    x:Name="btnPass"/>
+        <Button Template="{DynamicResource RejectButtonStyle}"
+                    Style="{StaticResource MainButton}" 
+                    Content="REJECT" 
+                    BorderThickness="0"
+                    Background="#EB212E"
+                    Foreground="#FFF1F1F1"
+                    FontSize="23"
+                    FontWeight="Medium"
+                    HorizontalAlignment="Center" 
+                    Grid.Row="1"  
+                    Grid.Column="1"
+                    VerticalAlignment="Center" 
+                    Padding="25,5,25,5"
+                    Margin="0,270,0,0" 
+                    Height="50" 
+                    Width="240" 
+                    Click="btnReject_Click" 
+                    x:Name="btnReject"/>
+        <Button Template="{DynamicResource GeneralButtonStyle}"
+                    Style="{StaticResource MainButton}" 
+                    Content="Info"
+                    BorderThickness="0"
+                    Background="#CC9900"
+                    Foreground="#FFF1F1F1"
+                    FontSize="23"
+                    FontWeight="Medium"
+                    HorizontalAlignment="Center" 
+                    Grid.Row="1" 
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Padding="25,5,25,5" 
+                    Margin="0,420,0,0" 
+                    Height="50" 
+                    Width="240" 
+                    Click="btnInfo_Click" 
+                    x:Name="btnInfo" 
+                    Visibility="Collapsed"/>
+        <Button Template="{DynamicResource GeneralButtonStyle}"
+                    Style="{StaticResource MainButton}" 
+                    Content="REVERT" 
+                    BorderThickness="0"
+                    Background="#CC9900"
+                    Foreground="#FFF1F1F1"
+                    FontSize="23"
+                    FontWeight="Medium"
+                    HorizontalAlignment="Center" 
+                    Grid.Row="1"  
+                    Grid.Column="1"
+                    VerticalAlignment="Center" 
+                    Padding="25,5,25,5" 
+                    Margin="0,420,0,0" 
+                    Height="50" 
+                    Width="240" 
+                    Click="btnRevert_Click" 
+                    x:Name="btnRevert"/>
+
+        <!--
+        <GroupBox Style="{StaticResource GroupBoxStyle}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Bottom"
+                  Margin="0,0,0,60"
+                  Height="280"
+                  Width="235"
+                  Grid.Column="1"
+                  Grid.Row="1">
+            
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource TextBlockStyle}" Text=" Other Options " FontSize="20" FontWeight="DemiBold"/>
+            </GroupBox.Header>
+
+            <Grid HorizontalAlignment="Center"
+                  Height="250"
+                  VerticalAlignment="Center"
+                  Width="230">
+                <Label Style="{StaticResource LabelStyle}" Content="Other Options" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Separator Margin="20,50,20,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+         -->
+
+        <TabControl Style="{StaticResource TabControlStyle}" Grid.Row="1" Grid.Column="2" SelectionChanged="TabControl_SelectionChanged" x:Name="tabcon">
+            <TabItem Style="{DynamicResource TabItemStyle}" Header="All" FontSize="20" FontWeight="DemiBold" Padding="20,0" x:Name="alltab">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="430*"/>
+                        <RowDefinition Height="100*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="1">
+                        <StackPanel>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img1" Style="{StaticResource ImgSpacing}"/>
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img2" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img3" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img4" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img5" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img6" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img7" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img8" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img9" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="img10" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Grid Style="{StaticResource BrightGridStyle}" Grid.Row="2">
+                        <UniformGrid Rows="3">
+
+                            <UniformGrid Columns="2">
+                                <Label HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Open folder" FontSize="15"/>
+                                </Label>
+                                <Button Template="{DynamicResource GeneralButtonStyle}"
+                                        Style="{StaticResource MainButton}"
+                                        BorderThickness="0"
+                                        Background="#CC9900"
+                                        Height="30" 
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Margin="8,0,0,0"
+                                        Click="btnOpenUploadFolder_Click">
+                                    <DockPanel Margin="3">
+                                        <Image Source="/Resources/open-folder.png"/>
+                                    </DockPanel>
+                                </Button>
+                            </UniformGrid>
+
+                            <Separator Margin="10,0"/>
+
+                            <UniformGrid Columns="5">
+                                <Button Template="{DynamicResource SideButtonStyle}"
+                                        Style="{StaticResource SideButton}"
+                                        BorderThickness="0"
+                                        Background="Gray"
+                                        Foreground="#FFF1F1F1"
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Height="22" 
+                                        Width="30"
+                                        Content="&lt;&lt;" 
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Top" 
+                                        Margin="0,5,0,0" 
+                                        Click="btnAllFirst_Click" 
+                                        x:Name="btnAllFirst"/>
+                                <Button Template="{DynamicResource SideButtonStyle}"
+                                        Style="{StaticResource SideButton}"
+                                        BorderThickness="0"
+                                        Background="Gray"
+                                        Foreground="#FFF1F1F1"
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Height="22" 
+                                        Width="25"
+                                        Content="&lt;" 
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Top" 
+                                        RenderTransformOrigin="0.015,0.015"
+                                        Margin="0,5,0,0" 
+                                        Click="btnAllPrev_Click" 
+                                        x:Name="btnAllPrev"/>
+                                <Label Style="{StaticResource LabelStyle}" Content="1" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="allPage"/>
+                                <Button Template="{DynamicResource SideButtonStyle}"
+                                        Style="{StaticResource SideButton}"
+                                        BorderThickness="0"
+                                        Background="Gray"
+                                        Foreground="#FFF1F1F1"
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Height="22" 
+                                        Width="25"
+                                        Content="&gt;" 
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top" 
+                                        Margin="0,5,0,0" 
+                                        Click="btnAllNext_Click" 
+                                        x:Name="btnAllNext"/>
+                                <Button Template="{DynamicResource SideButtonStyle}"
+                                        Style="{StaticResource SideButton}"
+                                        BorderThickness="0"
+                                        Background="Gray"
+                                        Foreground="#FFF1F1F1"
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Height="22" 
+                                        Width="30"
+                                        Content="&gt;&gt;" 
+                                        HorizontalAlignment="Left" 
+                                        Margin="0,5,0,0"  
+                                        VerticalAlignment="Top" 
+                                        Click="btnAllLast_Click" 
+                                        x:Name="btnAllLast"/>
+                            </UniformGrid>
+
+                        </UniformGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Style="{DynamicResource TabItemStyle}" Header="Pass" FontSize="20" FontWeight="DemiBold" Padding="20,0" x:Name="passtab">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="430*"/>
+                        <RowDefinition Height="100*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="1">
+                        <StackPanel>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg1" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg2" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg3" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg4" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg5" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg6" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg7" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg8" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg9" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                            <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                <Image x:Name="Pimg10" Style="{StaticResource ImgSpacing}" />
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Grid Style="{StaticResource BrightGridStyle}" Grid.Row="2">
+                        <UniformGrid Rows="3">
+
+                            <UniformGrid Columns="2">
+                                <Label HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Open folder" FontSize="15"/>
+                                </Label>
+                                <Button Template="{DynamicResource GeneralButtonStyle}"
+                                        Style="{StaticResource MainButton}"
+                                        BorderThickness="0"
+                                        Background="#CC9900"
+                                        Height="30" 
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Margin="8,0,0,0"
+                                        Click="btnOpenPassFolder_Click">
+                                    <DockPanel Margin="3">
+                                        <Image Source="/Resources/open-folder.png"/>
+                                    </DockPanel>
+                                </Button>
+                            </UniformGrid>
+
+                            <Separator Margin="10,0"/>
+
+                            <UniformGrid Columns="5">
+                                <Button Template="{DynamicResource SideButtonStyle}"
+                                        Style="{StaticResource SideButton}"
+                                        BorderThickness="0"
+                                        Background="Gray"
+                                        Foreground="#FFF1F1F1"
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Height="22" 
+                                        Width="30"
+                                        Content="&lt;&lt;" 
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Top" 
+                                        Margin="0,5,0,0" 
+                                        Click="btnPassFirst_Click" 
+                                        x:Name="btnPassFirst"/>
+                                <Button Template="{DynamicResource SideButtonStyle}"
+                                        Style="{StaticResource SideButton}"
+                                        BorderThickness="0"
+                                        Background="Gray"
+                                        Foreground="#FFF1F1F1"
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Height="22" 
+                                        Width="25"
+                                        Content="&lt;" 
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Top" 
+                                        RenderTransformOrigin="0.015,0.015"
+                                        Margin="0,5,0,0" 
+                                        Click="btnPassPrev_Click" 
+                                        x:Name="btnPassPrev"/>
+                                <Label Style="{StaticResource LabelStyle}" Content="1" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="passPage"/>
+                                <Button Template="{DynamicResource SideButtonStyle}"
+                                        Style="{StaticResource SideButton}"
+                                        BorderThickness="0"
+                                        Background="Gray"
+                                        Foreground="#FFF1F1F1"
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Height="22" 
+                                        Width="25"
+                                        Content="&gt;" 
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top" 
+                                        Margin="0,5,0,0" 
+                                        Click="btnPassNext_Click" 
+                                        x:Name="btnPassNext"/>
+                                <Button Template="{DynamicResource SideButtonStyle}"
+                                        Style="{StaticResource SideButton}"
+                                        BorderThickness="0"
+                                        Background="Gray"
+                                        Foreground="#FFF1F1F1"
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Height="22" 
+                                        Width="30"
+                                        Content="&gt;&gt;" 
+                                        HorizontalAlignment="Left" 
+                                        Margin="0,5,0,0"  
+                                        VerticalAlignment="Top" 
+                                        Click="btnPassLast_Click" 
+                                        x:Name="btnPassLast"/>
+                            </UniformGrid>
+
+                        </UniformGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Style="{DynamicResource TabItemStyle}" Header="Reject" FontSize="20" FontWeight="DemiBold" Padding="20,0" x:Name="rejecttab">
+                <Grid>
+                    <Grid x:Name="rejectFolderOverview">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="21*"/>
+                            <ColumnDefinition Width="107*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+
+                        <Button 
+                            Template="{DynamicResource GeneralButtonStyle}"
+                            Style="{StaticResource MainButton}"
+                            BorderThickness="0"
+                            Background="#CC9900"
+                            VerticalAlignment="Center"
+                            Foreground="#FFF1F1F1"
+                            Grid.Row="2" Content="Manage" Click="btnManageReject_Click" Grid.ColumnSpan="2"/>
+
+                        <Grid Style="{StaticResource BrightGridStyle}" Grid.Row="0" Grid.ColumnSpan="2">
+                            <UniformGrid Columns="2">
+                                <Label HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Open folder" FontSize="15"/>
+                                </Label>
+                                <Button Template="{DynamicResource GeneralButtonStyle}"
+                                        Style="{StaticResource MainButton}"
+                                        BorderThickness="0"
+                                        Background="#CC9900"
+                                        Height="30" 
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Margin="8,0,0,0"
+                                        Click="btnOpenRejectFolder_Click">
+                                    <DockPanel Margin="3">
+                                        <Image Source="/Resources/open-folder.png"/>
+                                    </DockPanel>
+                                </Button>
+                            </UniformGrid>
+                        </Grid>
+                        <!--  -->
+                        <ListBox Style="{StaticResource ListBoxStyle}"
+                                 Grid.Row="1"
+                                 x:Name="rejectOverviewListBox" 
+                                 BorderThickness="0" 
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 HorizontalContentAlignment="Center" Grid.ColumnSpan="2">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Margin" Value="10"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Control MouseDoubleClick="rejectTabFolder_doubleclick">
+                                        <Control.Template>
+                                            <ControlTemplate>
+
+                                                <Border Style="{StaticResource BorderStyle}" Cursor="Hand" Height="100" Width="200" CornerRadius="8">
+                                                    <StackPanel>
+                                                        <Image Style="{StaticResource FolderIconStyle}" Width="60" Height="60"/>
+                                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding rejectFolderName}" FontSize="15" HorizontalAlignment="Center"/>
+                                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding rejectNum}" FontSize="15" HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Border>
+
+                                            </ControlTemplate>
+                                        </Control.Template>
+                                    </Control>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+
+                    <Grid x:Name="rejectFolderContent" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="430*"/>
+                            <RowDefinition Height="100*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Style="{StaticResource BrightGridStyle}" Grid.Row="0">
+                            <Button Template="{DynamicResource GeneralButtonStyle}"
+                                    Style="{StaticResource MainButton}"
+                                    BorderThickness="0"
+                                    Background="#CC9900"
+                                    Height="30" 
+                                    Width="50"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Margin="10,0,0,0"
+                                    Click="btnReturnOverview_Click">
+                                <DockPanel Margin="3">
+                                    <Image Source="/Resources/go-back.png"/>
+                                </DockPanel>
+                            </Button>
+                        </Grid>
+
+                        <ScrollViewer Grid.Row="1">
+                            <StackPanel >
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg1" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg2" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg3" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg4" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg5" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg6" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg7" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg8" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg9" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                                <Border Style="{StaticResource ImgBorder}" MouseLeftButtonDown="preview_MouseDown">
+                                    <Image x:Name="Fimg10" Style="{StaticResource ImgSpacing}" />
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <Grid Style="{StaticResource BrightGridStyle}" Grid.Row="2">
+                            <UniformGrid Rows="3">
+
+                                <Grid>
+                                    <Button Template="{DynamicResource GeneralButtonStyle}"
+                                            Style="{StaticResource MainButton}"
+                                            BorderThickness="0"
+                                            Background="#CC9900"
+                                            Foreground="#FFF1F1F1"
+                                            Height="30" 
+                                            Width="220"
+                                            FontSize="12"
+                                            HorizontalAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Margin="8,0,8,0"
+                                            Content="Open Folder"
+                                            x:Name="btnOpenDefFol" 
+                                            Click="btnOpenRejectCategory_Click"/>
+                                </Grid>
+
+                                <Separator Margin="10,0"/>
+
+                                <UniformGrid Columns="5">
+                                    <Button Template="{DynamicResource SideButtonStyle}"
+                                            Style="{StaticResource SideButton}"
+                                            BorderThickness="0"
+                                            Background="Gray"
+                                            Foreground="#FFF1F1F1"
+                                            FontWeight="Bold"
+                                            FontSize="14"
+                                            Height="22" 
+                                            Width="30"
+                                            Content="&lt;&lt;" 
+                                            HorizontalAlignment="Right" 
+                                            VerticalAlignment="Top" 
+                                            Margin="0,5,0,0" 
+                                            Click="btnRejectFirst_Click" 
+                                            x:Name="btnRejectFirst"/>
+                                    <Button Template="{DynamicResource SideButtonStyle}"
+                                            Style="{StaticResource SideButton}"
+                                            BorderThickness="0"
+                                            Background="Gray"
+                                            Foreground="#FFF1F1F1"
+                                            FontWeight="Bold"
+                                            FontSize="14"
+                                            Height="22" 
+                                            Width="25"
+                                            Content="&lt;" 
+                                            HorizontalAlignment="Right" 
+                                            VerticalAlignment="Top" 
+                                            RenderTransformOrigin="0.015,0.015"
+                                            Margin="0,5,0,0" 
+                                            Click="btnRejectPrev_Click"
+                                            x:Name="btnRejectPrev"/>
+                                    <Label Style="{StaticResource LabelStyle}" Content="1" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="rejectPage"/>
+                                    <Button Template="{DynamicResource SideButtonStyle}"
+                                            Style="{StaticResource SideButton}"
+                                            BorderThickness="0"
+                                            Background="Gray"
+                                            Foreground="#FFF1F1F1"
+                                            FontWeight="Bold"
+                                            FontSize="14"
+                                            Height="22" 
+                                            Width="25"
+                                            Content="&gt;" 
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top" 
+                                            Margin="0,5,0,0" 
+                                            Click="btnRejectNext_Click" 
+                                            x:Name="btnRejectNext"/>
+                                    <Button Template="{DynamicResource SideButtonStyle}"
+                                            Style="{StaticResource SideButton}"
+                                            BorderThickness="0"
+                                            Background="Gray"
+                                            Foreground="#FFF1F1F1"
+                                            FontWeight="Bold"
+                                            FontSize="14"
+                                            Height="22" 
+                                            Width="30"
+                                            Content="&gt;&gt;" 
+                                            HorizontalAlignment="Left" 
+                                            Margin="0,5,0,0"  
+                                            VerticalAlignment="Top" 
+                                            Click="btnRejectLast_Click" 
+                                            x:Name="btnRejectLast"/>
+                                </UniformGrid>
+
+                            </UniformGrid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Grid x:Name="InputBox" Visibility="Collapsed" Panel.ZIndex="100" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border Style="{StaticResource BorderStyle}"
+                    Width="400"
+                    Height="200"
+                    CornerRadius="8" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+                <Grid>
+                    <TextBlock Style="{StaticResource TextBlockStyle}" Margin="50,50,0,50" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Input Box:" FontSize="18" FontWeight="Bold"/>
+                    <TextBox Style="{StaticResource TextBoxStyle2}" Margin="150,50,0,50" MinWidth="200" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" x:Name="InputTextBox"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Template="{DynamicResource GeneralButtonStyle}"
+                                Style="{StaticResource MainButton}"
+                                BorderThickness="0"
+                                Background="#CC9900"
+                                Foreground="#FFF1F1F1"
+                                Content="Add"
+                                FontSize="12"
+                                Height="25"
+                                Width="80"
+                                Margin="0,100,10,0"                               
+                                x:Name="YesButton"
+                                Click="YesButton_Click"/>
+
+                        <Button Template="{DynamicResource CancelButtonStyle}"
+                                Style="{StaticResource SideButton}"
+                                BorderThickness="1"
+                                BorderBrush="#AEAEAE"
+                                Background="White"
+                                Foreground="#FF6A6A6A"
+                                Content="Cancel"
+                                FontSize="12"
+                                Height="25"
+                                Width="80"
+                                Margin="10,100,0,0"
+                                Cursor="Hand"
+                                x:Name="NoButton"
+                                Click="CancelButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="RejectBox" Visibility="Collapsed" Panel.ZIndex="100" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border Style="{StaticResource BorderStyle}"
+                    Padding="20"
+                    Width="400"
+                    Height="200"
+                    CornerRadius="8"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ListBox Style="{StaticResource ListBoxStyle}" x:Name="rejectListBox" BorderThickness="0">
+
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="3" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Control MouseDoubleClick="selectReject_doubleclick" Cursor="Hand">
+                                        <Control.Template>
+                                            <ControlTemplate>
+
+                                                <Border Style="{StaticResource BorderStyle}" Cursor="Hand" Height="80" Width="100" CornerRadius="8">
+                                                    <StackPanel>
+                                                        <Image Style="{StaticResource FolderIconStyle}" Width="30" Height="30"/>
+                                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding rejectFolderName}" FontSize="12" HorizontalAlignment="Center"/>
+                                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding rejectNum}" FontSize="12" HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Border>
+
+                                            </ControlTemplate>
+                                        </Control.Template>
+                                    </Control>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+
+                        </ListBox>
+                    </ScrollViewer>
+
+                    <Button Template="{DynamicResource CancelButtonStyle}"
+                            Style="{StaticResource SideButton}"
+                            BorderThickness="1"
+                            BorderBrush="#AEAEAE"
+                            Background="White"
+                            Foreground="#FF6A6A6A"
+                            Content="Cancel"
+                            FontSize="12"
+                            Height="25"
+                            Width="80"
+                            Margin="0,20,0,0"
+                            Cursor="Hand"
+                            Click="cancelRejectList_Click" 
+                            Grid.Row="1" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="SummaryBox" Visibility="Collapsed" Panel.ZIndex="100" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border Style="{StaticResource BorderStyle4}"
+                    Width="500"
+                    MaxHeight="750"
+                    CornerRadius="8" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+                <Grid>
+                    <StackPanel>
+                        <Border Style="{StaticResource BorderStyle}" Margin="30" CornerRadius="8" Height="220">
+                            <Grid>
+                                <Label Style="{StaticResource LabelStyle}" Content="Summary" Margin="0,15,0,10" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" FontWeight="Bold"/>
+
+                                <Separator VerticalAlignment="Top" Margin="20,70,20,0"/>
+
+                                <StackPanel Margin="20,80,20,10">
+                                    <Label Style="{StaticResource LabelStyle}" Content="Total Image: " HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" x:Name="summary_total"/>
+                                    <Label Style="{StaticResource LabelStyle}" Content="Total Inspected Image: " HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" x:Name="summary_totalinspect"/>
+                                    <Label Style="{StaticResource LabelStyle}" Content="Pass Count: " HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" x:Name="summary_pass"/>
+                                    <Label Style="{StaticResource LabelStyle}" Content="Reject Count: " HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" x:Name="summary_fail"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource BorderStyle}" Margin="30,0,30,30" CornerRadius="8" MaxHeight="200">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Style="{StaticResource LabelStyle}" Content="Reject Folder Breakdown" Margin="0,15,0,10" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
+
+                                <ScrollViewer Margin="30,10,30,20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="75" Grid.Row="1">
+                                    <ListBox Style="{StaticResource ListBoxStyle}" x:Name="summaryListBox" BorderThickness="0">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Style="{StaticResource TextBlockStyle}"  FontSize="12" HorizontalAlignment="Center">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                                <Binding Path="rejectFolderName" />
+                                                                <Binding Path="rejectNum" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                    <!--<TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding rejectNum}" FontSize="12" HorizontalAlignment="Center"/> Text="{Binding rejectFolderName}"-->
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+
+                        <Button Template="{DynamicResource CancelButtonStyle}"
+                                Style="{StaticResource SideButton}"
+                                BorderThickness="1"
+                                BorderBrush="#AEAEAE"
+                                Background="White"
+                                Foreground="#FF6A6A6A"
+                                Content="Close"
+                                FontSize="12"
+                                Height="25"
+                                Width="80"
+                                Margin="0,10,0,10"
+                                Cursor="Hand"
+                                Click="closeSummary_Click" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="ProgressBox" Visibility="Collapsed" Panel.ZIndex="100" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border Style="{StaticResource BorderStyle}"
+                    MinWidth="400"
+                    MinHeight="200"
+                    CornerRadius="8" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+                <Grid>
+                    <StackPanel x:Name="ProgressBox_progress" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Margin="0,20,0,5" Text="Uploading..." FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="progressmsg"/>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Margin="0,0,0,10" Text="0/0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="progressnum"/>
+                        <ProgressBar x:Name="pbBar" Minimum="0" Maximum="100" Height="10" Margin="10" IsIndeterminate="true"/>
+                        <Button Template="{DynamicResource GeneralButtonStyle}"
+                                Style="{StaticResource MainButton}" 
+                                x:Name="sUploadButton" 
+                                BorderThickness="0"
+                                Background="#CC9900"
+                                Foreground="#FFF1F1F1" 
+                                Content="Start" 
+                                FontSize="12" 
+                                Height="25" 
+                                Width="80" 
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"
+                                Click="sUploadButton_Click" 
+                                Visibility="Collapsed"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="ProgressBox_error" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <Image HorizontalAlignment="Left" 
+                                   Width="50"
+                                   Height="50"
+                                   Margin="15,15,0,0">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="300" UriSource="/Resources/alert-red.png" />
+                                </Image.Source>
+                            </Image>
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Margin="10,15,0,0" VerticalAlignment="Center" Text="Duplicate image file name found!" FontWeight="Bold" x:Name="progresserrormsg"/>
+                        </StackPanel>
+
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Margin="15" HorizontalAlignment="Center" Text="" FontWeight="Bold" x:Name="dupOriTextBlock"/>
+
+                        <TextBox Style="{StaticResource TextBoxStyle2}" MinWidth="200" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="progress_InputTextBox"/>
+
+                        <Button Template="{DynamicResource GeneralButtonStyle}"
+                                Style="{StaticResource MainButton}" 
+                                x:Name="sRenameButton"
+                                BorderThickness="0"
+                                Background="#CC9900"
+                                Foreground="#FFF1F1F1" 
+                                Content="Start" 
+                                FontSize="12" 
+                                Height="25" 
+                                Width="80" 
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"
+                                Click="sRenameButton_Click"
+                                Visibility="Collapsed"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                            <Button Template="{DynamicResource GeneralButtonStyle}"
+                                    Style="{StaticResource MainButton}"  
+                                    BorderThickness="0"
+                                    Background="#CC9900"
+                                    Foreground="#FFF1F1F1" 
+                                    x:Name="RenameButton" 
+                                    Margin="5" 
+                                    Content="Rename" 
+                                    FontSize="12" 
+                                    Height="30" 
+                                    Width="100"
+                                    Click="RenameButton_Click"/>
+                            <Button 
+                                    Template="{DynamicResource GeneralButtonStyle}"
+                                    Style="{StaticResource MainButton}"  
+                                    BorderThickness="0"
+                                    Background="#CC9900"
+                                    Foreground="#FFF1F1F1"
+                                    FontSize="12" 
+                                    Height="30" 
+                                    Width="100"
+                                    x:Name="QuickRenameButton" 
+                                    Margin="5" 
+                                    Content="Quick Rename" 
+                                    Click="QuickRenameButton_Click"/>
+                            <Button Template="{DynamicResource CancelButtonStyle}"
+                                    Style="{StaticResource SideButton}"
+                                    BorderThickness="1"
+                                    BorderBrush="#AEAEAE"
+                                    Background="White"
+                                    Foreground="#FF6A6A6A"
+                                    x:Name="SkipButton" 
+                                    Margin="5" 
+                                    Content="Skip" 
+                                    FontSize="12" 
+                                    Height="30" 
+                                    Width="100"
+                                    Click="SkipButton_Click" />
+                            <Button Template="{DynamicResource CancelButtonStyle}"
+                                    Style="{StaticResource SideButton}"
+                                    BorderThickness="1"
+                                    BorderBrush="#AEAEAE"
+                                    Background="White"
+                                    Foreground="#FF6A6A6A"
+                                    x:Name="SkipAllButton" 
+                                    Margin="5" 
+                                    Content="Skip All"
+                                    FontSize="12" 
+                                    Height="30" 
+                                    Width="100"
+                                    Click="SkipAllButton_Click" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="ManageRejectBox" Visibility="Collapsed" Panel.ZIndex="100" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border Style="{StaticResource BorderStyle}"
+                    Padding="20"
+                    Width="400"
+                    MaxHeight="300"
+                    CornerRadius="8"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+                <Grid>
+
+                    <StackPanel x:Name="ManageRejectMenu" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Margin="0,20,0,5" Text="Select the folder and choose an option" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="manageRejectmsg"/>
+                        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150">
+                            <ListBox Style="{StaticResource ListBoxStyle}" x:Name="rejectManageBox" BorderThickness="0">
+
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="3" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource BorderStyle}" Cursor="Hand" Height="80" Width="100" CornerRadius="8">
+                                            <StackPanel>
+                                                <Image Style="{StaticResource FolderIconStyle}" Width="30" Height="30"/>
+                                                <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding rejectFolderName}" FontSize="12" HorizontalAlignment="Center"/>
+                                                <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding rejectNum}" FontSize="12" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+                        </ScrollViewer>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Template="{DynamicResource GeneralButtonStyle}"
+                                    Style="{StaticResource MainButton}"
+                                    Background="#CC9900"
+                                    Foreground="#FFF1F1F1"
+                                    Content="Rename"
+                                    FontSize="12"
+                                    Height="25"
+                                    Width="80"
+                                    Margin="0,20,20,0"
+                                    Cursor="Hand"
+                                    Click="renameManageReject_Click" 
+                                    Grid.Row="1" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
+
+                            <Button Template="{DynamicResource GeneralButtonStyle}"
+                                    Style="{StaticResource MainButton}"
+                                    Background="#CC9900"
+                                    Foreground="#FFF1F1F1"
+                                    Content="Delete"
+                                    FontSize="12"
+                                    Height="25"
+                                    Width="80"
+                                    Margin="0,20,0,0"
+                                    Cursor="Hand"
+                                    Click="deleteManageReject_Click" 
+                                    Grid.Row="1" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
+
+                            <Button Template="{DynamicResource CancelButtonStyle}"
+                                    Style="{StaticResource SideButton}"
+                                    BorderThickness="1"
+                                    BorderBrush="#AEAEAE"
+                                    Background="White"
+                                    Foreground="#FF6A6A6A"
+                                    Content="Cancel"
+                                    FontSize="12"
+                                    Height="25"
+                                    Width="80"
+                                    Margin="20,20,0,0"
+                                    Cursor="Hand"
+                                    Click="cancelManageReject_Click" 
+                                    Grid.Row="1" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="RenameRejectFolder" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="Please enter a new name for " FontWeight="Bold"/>
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="OriFoldername" x:Name="orifoldername" FontWeight="Bold"/>
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text=":" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBox Style="{StaticResource TextBoxStyle2}" Width="350" x:Name="newfoldername" Margin="0,10,0,0"/>
+                        </StackPanel>
+
+
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Rename" Click="btnRenameDefRename_Click"
+                                    Template="{DynamicResource GeneralButtonStyle}"
+                                    Style="{StaticResource MainButton}"
+                                    BorderThickness="0"
+                                    Background="#CC9900"
+                                    Foreground="#FFF1F1F1"
+                                    FontSize="12"
+                                    Height="25"
+                                    Width="80"
+                                    Margin="0,20,20,0"/>
+                            <Button Content="Cancel" Click="btnRenameDefCancel_Click"
+                                    Template="{DynamicResource CancelButtonStyle}"
+                                    Style="{StaticResource SideButton}"
+                                    BorderThickness="1"
+                                    BorderBrush="#AEAEAE"
+                                    Background="White"
+                                    Foreground="#FF6A6A6A"
+                                    FontSize="12"
+                                    Height="25"
+                                    Width="80"
+                                    Margin="20,20,0,0"
+                                    Cursor="Hand"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="DeleteRejectFolder" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="Select an option to proceed:" FontWeight="Bold"/>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="foldername" x:Name="managedefdelname" FontWeight="Bold"/>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="All images in the folder will be deleted" FontWeight="Bold"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Delete all" Click="btnDeleteDefDel_Click"
+                                    Template="{DynamicResource GeneralButtonStyle}"
+                                    Style="{StaticResource MainButton}"
+                                    BorderThickness="0"
+                                    Background="#EB212E"
+                                    Foreground="#FFF1F1F1"
+                                    FontSize="12"
+                                    Height="25"
+                                    Width="80"
+                                    Margin="0,10,10,0"/>
+                            <Button Content="Cancel" Click="btnDeleteDefCancel_Click"
+                                    Template="{DynamicResource CancelButtonStyle}"
+                                    Style="{StaticResource SideButton}"
+                                    BorderThickness="1"
+                                    BorderBrush="#AEAEAE"
+                                    Background="White"
+                                    Foreground="#FF6A6A6A"
+                                    FontSize="12"
+                                    Height="25"
+                                    Width="80"
+                                    Margin="10,10,0,0"
+                                    Cursor="Hand"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+</Window>
