@@ -236,8 +236,54 @@
                 </ScrollViewer>
             </Grid>
         </Grid>
-        
-        <!-- here-->
+
+        <Grid Grid.Row="1">
+            <Separator VerticalAlignment="Top"/>
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center">
+                <Button Template="{DynamicResource CreateButtonStyle}"
+                        Style="{StaticResource MainButton}"
+                        BorderThickness="0"
+                        Background="#CC9900"
+                        Content="CREATE"
+                        Foreground="#FFF1F1F1"
+                        FontSize="15"
+                        Height="30"
+                        Width="170"
+                        Click="Button_Create"
+                        Margin="0,0,20,0">
+                    <!--
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                    -->
+                </Button>
+
+                <Button Template="{DynamicResource CancelButtonStyle}"
+                        Style="{StaticResource SideButton}"
+                        BorderThickness="1"
+                        BorderBrush="#AEAEAE"
+                        Background="White"
+                        Content="CANCEL"
+                        Foreground="#FF6A6A6A"
+                        FontSize="15"
+                        Height="30"
+                        Width="170"
+                        Click="Button_Cancel"
+                        Margin="0,0,20,0"
+                        Cursor="Hand">
+                    <!--
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                    -->
+                </Button>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </Window>
