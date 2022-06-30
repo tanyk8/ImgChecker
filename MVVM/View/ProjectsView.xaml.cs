@@ -1038,6 +1038,85 @@ namespace ImgChecker.MVVM.View
             File.WriteAllLines(fileName, arrLine);
         }
 
+        public void search_project_icon(object sender, MouseEventArgs e)
+        {
+            //hide table header
+            header_sp.Visibility = Visibility.Collapsed;
+
+            //show seacrh panel
+            search_sp.Visibility = Visibility.Visible;
+        }
+
+        public void close_search(object sender, MouseEventArgs e)
+        {
+            //clear textbox
+            txtSearchBox.Text = string.Empty;
+
+            //searchHint.Foreground = Brushes.Gray; //Modified by VL
+
+            //hide search panel
+            search_sp.Visibility = Visibility.Collapsed;
+
+            //show table header
+            header_sp.Visibility = Visibility.Visible;
+
+            foreach (Border row in projectRows) //set all visible
+            {
+                row.Visibility = Visibility.Visible;
+            }
+
+        }
+
+
+
+        public void search_changed(object sender, TextChangedEventArgs e)
+        {
+
+            if (!String.IsNullOrEmpty(txtSearchBox.Text))
+            { //if its not empty, search from list
+
+                int i = 0;
+
+                //searchHint.Foreground = Brushes.White; //Modified by VL
+
+                foreach (MenuProject p in projectsDetails)
+                {
+
+                    if (!(p.projectName.IndexOf(txtSearchBox.Text, StringComparison.OrdinalIgnoreCase) >= 0))
+                    {
+                        //set border invisible in stk panel
+                        projectRows[i].Visibility = Visibility.Collapsed;
+
+
+                    }
+                    else
+                    {
+                        //set border visible in stk panel
+                        projectRows[i].Visibility = Visibility.Visible;
+
+                    }
+
+                    i++;
+
+                }
+
+
+            }
+            else
+            {
+                //searchHint.Foreground = Brushes.Gray; //Modified by VL
+
+                foreach (Border row in projectRows) //set all visible
+                {
+                    row.Visibility = Visibility.Visible;
+                }
+
+            }
+
+        }
+
+
+
         //here above
 
     }
