@@ -603,8 +603,252 @@ namespace ImgChecker
 
         }
 
+        private void Button_ChooseProjectLocation(object sender, RoutedEventArgs e)
+        {
 
+            //using System.Windows.Forms;
 
+            String selected_folder_path = "";
+
+            System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                selected_folder_path = fbd.SelectedPath;
+                LocationTextBox.Text = selected_folder_path;
+
+            }
+
+        }
+
+        private void FailFolder1Name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(fail_txtbox_1.Text)) //if empty, display error
+            {
+                fail_errorlb_1.Content = "This field is required and must not be left empty";
+                fail_errorlb_1.Foreground = Brushes.Red;
+                isOk_FailFolders = false;
+            }
+            else if (Regex.IsMatch(fail_txtbox_1.Text, @"[""/\\:*?<>|]"))
+            {
+
+                fail_errorlb_1.Content = "Folder name cannot contain any of the following characters: \\ / : * ? \" < > |";
+                fail_errorlb_1.Foreground = Brushes.Red;
+                isOk_FailFolders = false;
+
+            }
+            else //if not empty
+            {
+                //Modified by VL
+                //hide error message according to theme
+                if (Properties.Settings.Default.Theme == "Light")
+                {
+                    fail_errorlb_1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+                }
+                else if (Properties.Settings.Default.Theme == "Dark")
+                {
+                    fail_errorlb_1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+                }
+
+                isOk_FailFolders = true;
+            }
+        }
+
+        private void Button_AddFailFolder(object sender, RoutedEventArgs e)
+        {
+
+            Button b = sender as Button;
+
+            //create outer vertical stack panel
+            StackPanel outer_sp = new StackPanel
+            {
+                Margin = new Thickness(10, 20, 0, 0),
+                Name = "fail_sp_" + addedFailFolderCount + 2
+            };
+
+            //exchange position of the add folder button and new stack panel 
+            Button btn_ref = b;
+            settings_stack_panel.Children.Remove(b);
+            settings_stack_panel.Children.Add(outer_sp);
+            settings_stack_panel.Children.Add(btn_ref);
+
+            //create inner horizontal stack panel
+            StackPanel inner_sp = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+            };
+            outer_sp.Children.Add(inner_sp);
+
+            //add labels
+            Label lbName = new Label
+            {
+                Content = "Reject Folder " + (addedFailFolderCount + 2),
+                Name = "fail_lb_" + (addedFailFolderCount + 2),
+                Width = 80
+            };
+            //Modified by VL
+            //set font color according to theme
+            if (Properties.Settings.Default.Theme == "Light")
+            {
+                lbName.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1E1E1E"));
+            }
+            else if (Properties.Settings.Default.Theme == "Dark")
+            {
+                lbName.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF1F1F1"));
+            }
+            inner_sp.Children.Add(lbName);
+
+            Label lbDot = new Label { Content = ":" };
+            //Modified by VL
+            //set font color according to theme
+            if (Properties.Settings.Default.Theme == "Light")
+            {
+                lbDot.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1E1E1E"));
+            }
+            else if (Properties.Settings.Default.Theme == "Dark")
+            {
+                lbDot.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF1F1F1"));
+            }
+            inner_sp.Children.Add(lbDot);
+
+            //add textbox
+            TextBox txtBox = new TextBox
+            {
+                Text = "Reject Category",
+                Name = "fail_txtbox_" + (addedFailFolderCount + 2),
+                Width = 230,
+                TextWrapping = TextWrapping.NoWrap,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            //Modified by VL
+            //set textbox color according to theme
+            if (Properties.Settings.Default.Theme == "Light")
+            {
+                txtBox.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1E1E1E"));
+                txtBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE8E8E8"));
+            }
+            else if (Properties.Settings.Default.Theme == "Dark")
+            {
+                txtBox.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF1F1F1"));
+                txtBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF252526"));
+            }
+            txtBox.TextChanged += txtBox_TextChanged; //assign event handler for every dynamically created textbox
+            inner_sp.Children.Add(txtBox);
+
+            //add delete button
+            Button btnDel = new Button
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                Name = "fail_btndel_" + (addedFailFolderCount + 2),
+                Height = 20,
+                Width = 15,
+                Margin = new Thickness(12, 0, 0, 0),
+                Padding = new Thickness(0, 0, 0, 5), //Modified by VL
+                Content = "x" //Modified by VL
+            };
+            btnDel.Click += dynamicButton_Click;
+            inner_sp.Children.Add(btnDel);
+
+            //create error label
+            Label erlabel = new Label
+            {
+                Content = "This field is required and must not be left empty." //Modified by VL
+            };
+            //Modified by VL
+            //hide error message according to theme
+            if (Properties.Settings.Default.Theme == "Light")
+            {
+                erlabel.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+            }
+            else if (Properties.Settings.Default.Theme == "Dark")
+            {
+                erlabel.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+            }
+            outer_sp.Children.Add(erlabel);
+
+            //update dictionary
+            textboxesAdded.Insert(addedFailFolderCount, txtBox);
+            buttonsAdded.Insert(addedFailFolderCount, btnDel);
+            stackpanelsAdded.Insert(addedFailFolderCount, outer_sp);
+
+            addedFailFolderCount++;
+
+        }
+
+        private void txtBox_TextChanged(object sender, TextChangedEventArgs e) //catch dynamically created txtBox's TexChanged Event
+        {
+
+            int j = 0;
+
+            //which textbox has been modified (get reference)
+            TextBox modifiedTextBox = (TextBox)sender;
+
+            j = textboxesAdded.IndexOf(modifiedTextBox);
+
+            //access the label from stack panel no.j (get reference)
+            Label lb = stackpanelsAdded[j].Children.OfType<Label>().FirstOrDefault();
+
+            if (String.IsNullOrEmpty(modifiedTextBox.Text)) //if empty, display error
+            {
+                lb.Content = "This field is required and must not be left empty";
+                lb.Foreground = Brushes.Red;
+                isOk_FailFolders = false;
+            }
+            else if (Regex.IsMatch(modifiedTextBox.Text, @"[""/\\:*?<>|]"))
+            {
+
+                lb.Content = "Folder name cannot contain any of the following characters: \\ / : * ? \" < > |";
+                lb.Foreground = Brushes.Red;
+                isOk_FailFolders = false;
+
+            }
+            else //if not empty
+            {
+                //Modified by VL
+                //hide error message according to theme
+                if (Properties.Settings.Default.Theme == "Light")
+                {
+                    lb.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+                }
+                else if (Properties.Settings.Default.Theme == "Dark")
+                {
+                    lb.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+                }
+
+                isOk_FailFolders = true;
+            }
+
+        }
+
+        private void dynamicButton_Click(object sender, EventArgs e)
+        {
+            int j = 0;
+
+            addedFailFolderCount--; //deleted one fail folder
+
+            Button pressedButton = (Button)sender; //which delete button has been pressed (get reference)
+
+            j = buttonsAdded.IndexOf(pressedButton); //index of btn in list (if fail folder 2, btn @ index 0)
+
+            //remove the stack panel from window
+            settings_stack_panel.Children.Remove(stackpanelsAdded[j]);
+
+            //find the target button, textbox and stackpanel in list and remove their record
+            buttonsAdded.Remove(pressedButton);
+            textboxesAdded.RemoveAt(j);
+            stackpanelsAdded.RemoveAt(j);
+
+            foreach (var entry in stackpanelsAdded)
+            {
+
+                //change label (fail folder name)
+                entry.Children.OfType<StackPanel>().FirstOrDefault()
+                    .Children.OfType<Label>().FirstOrDefault()
+                    .Content = "Reject Folder " + (stackpanelsAdded.IndexOf(entry) + 2);
+
+            }
+
+        }
 
         //up here
     }
