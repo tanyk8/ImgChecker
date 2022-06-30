@@ -850,6 +850,172 @@ namespace ImgChecker
 
         }
 
+        private void Button_Cancel(object sender, RoutedEventArgs e)
+        {
+
+            this.Close();
+        }
+
+        private void Button_Create(object sender, RoutedEventArgs e)
+        {
+
+            //all fail folder names
+            List<string> all_fail_folder_names = new List<string>();
+
+            all_fail_folder_names.Add(fail_txtbox_1.Text);
+
+            foreach (var entry in textboxesAdded)
+            {
+                all_fail_folder_names.Add(entry.Text);
+            }
+
+            //Check uniqueness of fail folder names
+            if (all_fail_folder_names.Count != all_fail_folder_names.Distinct().Count()) //Duplicates exists
+            {
+
+                // display error message
+                MessageBoxResult result = MessageBox.Show("Reject folder names must be unique.");
+
+                return;
+
+            }
+
+            //check if user did not upload anything
+            if (valid_files_path.Count == 0)
+            {
+
+                // display error message
+                MessageBoxResult result = MessageBox.Show("Please upload some images.");
+
+                return;
+            }
+
+            if (isOk_ProjectName && isOk_ProjectLocation && isOk_ProjectDescription && isOk_FailFolders)
+            {
+
+                //the path of images files to be added in project
+                string[] valid_files_array = valid_files_path.ToArray();
+
+                //check if valid_files_array has duplicated paths, if yes, remove them
+                string[] unique_valid_files_array = valid_files_array.Distinct().ToArray();
+                //s.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+
+                //path of project folder
+                string project_folder_path = @"" + LocationTextBox.Text + "\\" + ProjectNameTextBox.Text;
+
+                //path for uploaded folder
+                string uploaded_folder_path = System.IO.Path.Combine(project_folder_path, "uploaded");
+
+                //path for pass folder
+                string pass_folder_path = System.IO.Path.Combine(project_folder_path, "pass");
+
+                //path for (general) fail folder
+                string general_fail_folder_path = System.IO.Path.Combine(project_folder_path, "reject");
+
+                //create path for all fail folders
+                List<string> all_fail_folder_path = new List<string>();
+
+                foreach (var entry in all_fail_folder_names)
+                {
+                    all_fail_folder_path.Add(System.IO.Path.Combine(general_fail_folder_path, entry));
+
+                }
+
+                string[] all_fail_folder_path_array = all_fail_folder_path.ToArray();
+
+                //create folders
+                Directory.CreateDirectory(project_folder_path);
+                Directory.CreateDirectory(uploaded_folder_path);
+                Directory.CreateDirectory(pass_folder_path);
+                Directory.CreateDirectory(general_fail_folder_path);
+
+                foreach (var entry in all_fail_folder_path_array)
+                {
+
+                    Directory.CreateDirectory(entry);
+
+                }
+
+                List<string> imagefiles = new List<string>();
+
+                //write image files into project folder
+                foreach (string s in unique_valid_files_array)
+                {
+                    string fileToMove = s;
+                    string moveTo = uploaded_folder_path + "\\" + System.IO.Path.GetFileName(s);
+
+                    //moving file
+                    File.Copy(fileToMove, moveTo);
+                    imagefiles.Add(System.IO.Path.GetFileName(s));
+
+                }
+
+                //append project details to a textfile
+                var file_name = "ProjectDetails.txt";
+
+                string project_name = projectName;
+                string project_description = projectDescription;
+                string project_location = projectLocation;
+                string project_date_created = DateTime.Now.ToString("yyyy-MM-dd");
+                string project_date_modified = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                //save some text to a file in the same folder as wpf project exe file
+                using (StreamWriter sw = File.AppendText(file_name))
+                {
+                    sw.WriteLine(
+                        project_name + ","
+                        + project_description + ","
+                        + project_location + ","
+                        + project_date_created + ","
+                        + project_date_modified);
+                }
+
+                //ADD THIS
+                string path = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + "ProjectDetails.txt";
+
+                //ADD THIS
+                var lineCount = File.ReadAllLines(path).Length;
+                int num = lineCount - 1; //get position of project record in text file
+
+                Project tempproj = new Project();
+
+                tempproj.setProjName(project_name);
+                tempproj.setProjDesc(project_description);
+                tempproj.setProjLocation(project_location + "\\" + project_name);
+                tempproj.setProjSaveLocation(project_location + "\\" + project_name + "\\projData.dat");
+                tempproj.setProjDatetime(project_date_modified);
+                tempproj.setPassCount(0);
+                tempproj.setRejectCount(0);
+                tempproj.setNumProgress(0);
+                tempproj.setTotalNum(imagefiles.Count);
+                tempproj.setProjOriFile(imagefiles);
+
+                Project.SerializeItem(tempproj);
+
+                string projectfolder_location = project_location + "\\" + project_name;
+
+                Menu menu = App.Current.Windows.OfType<Menu>().FirstOrDefault();
+                if (menu != null)
+                {
+                    menu.Close();
+                }
+
+                MainWindow mainprog = new MainWindow(projectfolder_location, project_name, project_description, project_location, project_date_created, num);
+                mainprog.Show();
+
+                this.Close();
+            }
+            else
+            {
+
+                // display error message
+                MessageBoxResult result = MessageBox.Show("Please correct all errors before proceeding.");
+
+            }
+
+        }
+
+
         //up here
     }
 }
