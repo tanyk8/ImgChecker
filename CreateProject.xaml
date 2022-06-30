@@ -115,7 +115,52 @@
             <Grid Style="{StaticResource DullGridStyle}" 
                   Grid.Column="1">
 
-                <!-- here -->
+                <!--Drag and Drop files here-->
+                <StackPanel VerticalAlignment="Center">
+                    <Grid>
+                        <!--To accept the dropping of files...-->
+                        <Rectangle Style="{StaticResource RectangleStyle}"
+                                   AllowDrop="True"
+                                   Drop="Rectangle_Drop"
+                                   RadiusX="10"
+                                   RadiusY="10"                                   
+                                   Stroke="Gray"
+                                   Height="300"
+                                   Width="300"/>
+
+                        <StackPanel HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <Path Data="M16 7C13.351563 7 11.050781 8.238281 9.40625 10.0625C9.269531 10.046875 9.148438 10 9 10C6.800781 10 5 11.800781 5 14C3.269531 15.054688 2 16.835938 2 19C2 22.300781 4.699219 25 8 25L13 25L13 23L8 23C5.78125 23 4 21.21875 4 19C4 17.339844 5.007813 15.921875 6.4375 15.3125L7.125 15.03125L7.03125 14.28125C7.011719 14.117188 7 14.023438 7 14C7 12.882813 7.882813 12 9 12C9.140625 12 9.296875 12.019531 9.46875 12.0625L10.09375 12.21875L10.46875 11.71875C11.75 10.074219 13.75 9 16 9C19.277344 9 22.011719 11.253906 22.78125 14.28125L22.96875 15.0625L23.8125 15.03125C24.023438 15.019531 24.070313 15 24 15C26.21875 15 28 16.78125 28 19C28 21.21875 26.21875 23 24 23L19 23L19 25L24 25C27.300781 25 30 22.300781 30 19C30 15.84375 27.511719 13.316406 24.40625 13.09375C23.183594 9.574219 19.925781 7 16 7 Z M 16 15L12 19L15 19L15 27L17 27L17 19L20 19Z"
+                                  Fill="Gray"
+                                  Stretch="Uniform"
+                                  Height="50"/>
+                            <TextBlock Style="{StaticResource TextBlockStyle}"
+                                       Margin="10"
+                                       Text="Drag &amp; Drop Image(s) Here!"
+                                       FontSize="20"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Button Template="{DynamicResource SideButtonStyle}"
+                            Style="{StaticResource SideButton}"
+                            Content="Select File"
+                            BorderThickness="0"
+                            Background="Gray"                              
+                            Foreground="#FFF1F1F1"
+                            FontSize="20"
+                            Height="50"
+                            Width="150"
+                            Margin="0,30,0,0" 
+                            Click="Button_Click">
+                        <!--
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                        -->
+                    </Button>
+                </StackPanel>
             </Grid>
 
             <Grid Grid.Column="0">
