@@ -448,10 +448,164 @@ namespace ImgChecker
 
             }
 
+        }
+
+        private void TextBox_ProjectDescription(object sender, TextChangedEventArgs e)
+        {
+            //check if the textbox is empty or not
+            if (String.IsNullOrEmpty(DescriptionTextBox.Text))
+            {
+                projectDescription = "None"; //update project description
+
+                //Modified by VL
+                //hide error message according to theme
+                if (Properties.Settings.Default.Theme == "Light")
+                {
+                    projectDescriptionError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+                }
+                else if (Properties.Settings.Default.Theme == "Dark")
+                {
+                    projectDescriptionError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+                }
+
+                isOk_ProjectDescription = true;
+
+            }
+            else //if not empty
+            {
+
+                if (DescriptionTextBox.Text.Contains(","))
+                {
+                    projectDescriptionError.Content = "Description cannot contain commas."; //Modified by VL
+                    projectDescriptionError.Foreground = Brushes.Red;
+                    isOk_ProjectDescription = false;
+
+                }
+                else
+                {
+
+                    projectDescription = DescriptionTextBox.Text; //update project description
+
+                    //Modified by VL
+                    //hide error message according to theme
+                    if (Properties.Settings.Default.Theme == "Light")
+                    {
+                        projectDescriptionError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+                    }
+                    else if (Properties.Settings.Default.Theme == "Dark")
+                    {
+                        projectDescriptionError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+                    }
+
+                    isOk_ProjectDescription = true;
+
+                }
+
+            }
+        }
+
+        private void TextBox_ProjectLocation(object sender, TextChangedEventArgs e)
+        {
+
+            string folder_location = LocationTextBox.Text; //get user input path
+            string path_projectName = @"" + LocationTextBox.Text + "\\" + ProjectNameTextBox.Text;
+
+            if (!Directory.Exists(path_projectName))
+            {
+                //Modified by VL
+                //hide error message according to theme
+                if (Properties.Settings.Default.Theme == "Light")
+                {
+                    projectNameError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+                    projectLocationError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+                }
+                else if (Properties.Settings.Default.Theme == "Dark")
+                {
+                    projectNameError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+                    projectLocationError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+                }
+            }
+
+            if (String.IsNullOrEmpty(LocationTextBox.Text)) //if its empty, display error
+            {
+
+                projectLocationError.Content = "This field is required and must not be left empty."; //Modified by VL
+                projectLocationError.Foreground = Brushes.Red;
+                isOk_ProjectLocation = false;
+
+            }
+            else if (!Directory.Exists(folder_location)) //if invalid folder path (folder does not exist), display error
+            {
+
+                projectLocationError.Content = "Invalid folder path."; //Modified by VL
+                projectLocationError.Foreground = Brushes.Red;
+                isOk_ProjectLocation = false;
+
+            }
+            else if (Directory.Exists(path_projectName)) //check if project name already exists in seleted folder
+            {
+
+                projectLocationError.Content = "This folder already has a project called "
+                    + "\"" + ProjectNameTextBox.Text + "\"."; //Modified by VL
+                projectLocationError.Foreground = Brushes.Red;
+                isOk_ProjectLocation = false;
+
+                projectNameError.Foreground = Brushes.Red;
+                projectNameError.Content = "This project name already exists in the selected folder."; //Modified by VL
+
+
+                //if project name is empty, location there should not display any error message
+                //for now....
+                //project name error == yes
+                //project location error == no
+
+                if (String.IsNullOrEmpty(ProjectNameTextBox.Text))
+                {
+
+                    projectNameError.Content = "This field is required and must not be left empty.";
+
+                    if (Properties.Settings.Default.Theme == "Light")
+                    {
+                        projectLocationError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+                    }
+                    else if (Properties.Settings.Default.Theme == "Dark")
+                    {
+                        projectLocationError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+                    }
+
+                    projectLocation = LocationTextBox.Text; //update path
+                    isOk_ProjectLocation = true;
+
+                }
+
+            }
+            else //if not empty and valid file path
+            {
+
+                projectLocation = LocationTextBox.Text; //update path
+
+                //Modified by VL
+                //hide error message according to theme
+                if (Properties.Settings.Default.Theme == "Light")
+                {
+                    projectLocationError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF5F5F5"));
+                }
+                else if (Properties.Settings.Default.Theme == "Dark")
+                {
+                    projectLocationError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E40"));
+                }
+
+                isOk_ProjectLocation = true;
+
+                //isOk_project_name_location = true;
+
+            }
 
         }
 
-       
 
+
+
+        //up here
     }
 }
