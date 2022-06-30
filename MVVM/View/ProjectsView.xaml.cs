@@ -788,8 +788,257 @@ namespace ImgChecker.MVVM.View
 
         }
 
-        //here above
+        public void projectSettings_click(object sender, MouseButtonEventArgs e)
+        {
 
+            //which project's setting has been clicked (get reference)
+            Image clicked_img = (Image)sender;
+
+            project_selection = projectSettingsIcon.IndexOf(clicked_img); //which image was clicked
+
+            ContextMenu contextMenu = clicked_img.ContextMenu;
+            contextMenu.PlacementTarget = clicked_img;
+            contextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Top;
+            contextMenu.IsOpen = true;
+
+        }
+
+        private void m1_Click(object sender, RoutedEventArgs e)
+        {
+
+            string project_path = projectsDetails[project_selection].projectLocation;
+
+            Process.Start("explorer.exe", project_path);
+
+        }
+
+        private void m2_Click(object sender, RoutedEventArgs e)
+        {
+
+            //shadow the main screen
+            this.Opacity = 0.5;
+
+            //show custom message box
+            RemoveProjectFromListAlertWindow mB = new RemoveProjectFromListAlertWindow();
+            bool? result = mB.ShowDialog();
+
+            //if yes
+            if (result ?? false) //result == true //result.Value
+            {
+
+                string name = projectsDetails[project_selection].projectName;
+
+                foreach (Border item in recentProjects)
+                {
+
+                    var sp = (StackPanel)item.Child;
+                    var txtblock = (TextBlock)sp.Children[1];
+
+                    string recent_project_name = txtblock.Text; //recent project name
+
+                    if (recent_project_name.Equals(name))
+                    {
+
+                        //remove from recent projects (UI) 
+                        recent_projects_sp.Children.Remove(item);
+
+                        //remove recent project from list
+                        recentProjects.Remove(item);
+
+                        break;
+
+                    }
+
+                }
+
+                //remove project detail from list
+                projectsDetails.RemoveAt(project_selection);
+
+                //rewrite txt file
+                //path of txt file
+                string txt_file_name = "ProjectDetails.txt";
+                string path = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + txt_file_name;
+
+                //read text file before clearing 
+                string[] lines = File.ReadAllLines(path);
+
+                //clear textfile
+                File.WriteAllText(path, String.Empty);
+
+                string contents = "";
+                int j = 0;
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+
+                    if (i == project_selection)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        string[] col = lines[i].Split(',');
+
+                        contents = projectsDetails[j].projectName + ","
+                                    + projectsDetails[j].projectDescription + ","
+                                    + projectsDetails[j].projectLocation + ","
+                                    + projectsDetails[j].projectCreationDate + ","
+                                    + col[4];
+
+                        File.AppendAllText(path, contents + Environment.NewLine);
+
+                        j++;
+
+                    }
+
+                }
+
+                //delete border in scrollviewer
+                scrollviewer_sp.Children.Remove(projectRows[project_selection]);
+
+                //remove from border, stk panel and image list
+                projectSettingsIcon.RemoveAt(project_selection);
+                projectRows.RemoveAt(project_selection);
+                project_child1Sp.RemoveAt(project_selection);
+                project_parentSp.RemoveAt(project_selection);
+
+            }
+
+            this.Opacity = 1;
+
+        }
+
+        private void m3_Click(object sender, RoutedEventArgs e)
+        {
+
+            //shadow the main screen
+            this.Opacity = 0.5;
+
+            //get project name
+            string name = projectsDetails[project_selection].projectName;
+
+            //get project description
+            string desc = projectsDetails[project_selection].projectDescription;
+
+            //get project location
+            string location = projectsDetails[project_selection].projectLocation;
+
+            string creation_date = projectsDetails[project_selection].projectCreationDate;
+
+            Trace.WriteLine(creation_date);
+
+            //open window to change name, description and location
+            EditProjectDetailsWindow edit_window = new EditProjectDetailsWindow(name, desc, location);
+            bool? result = edit_window.ShowDialog();
+
+            //if yes
+            if (result ?? false) //result == true //result.Value
+            {
+
+                //get updated values
+                string updated_name = edit_window.pass_name;
+                string updated_description = edit_window.pass_desc;
+                string updated_location = edit_window.pass_loc;
+
+                //check if selected project to edit is in recents there
+                foreach (Border item in recentProjects)
+                {
+
+                    var sp = (StackPanel)item.Child;
+                    var txtblock = (TextBlock)sp.Children[1];
+
+                    string recent_project_name = txtblock.Text; //recent project name
+
+                    if (recent_project_name.Equals(name))
+                    {
+
+                        //change name
+                        txtblock.Text = updated_name;
+
+                        break;
+
+                    }
+
+                }
+
+                string path = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + "ProjectDetails.txt";
+
+                //read text file before clearing 
+                string[] lines = File.ReadAllLines(path);
+                string[] col = lines[project_selection].Split(',');
+
+                string content = updated_name + ","
+                    + updated_description + ","
+                    + updated_location + ","
+                    + creation_date + ","
+                    + col[4];
+
+                Trace.WriteLine(creation_date);
+
+                Trace.WriteLine(content);
+
+                //update text file
+                lineChanger(content, path, project_selection);
+
+                //update textblocks in main menu's list
+                var txt_whole_name = (StackPanel)project_parentSp[project_selection].Children[0];
+
+                var txt_name = (TextBlock)txt_whole_name.Children[0];
+                txt_name.Text = updated_name;
+
+                var txt_location = (TextBlock)txt_whole_name.Children[1];
+                txt_location.Text = updated_location;
+
+                var txt_desc = (TextBlock)project_parentSp[project_selection].Children[1];
+                txt_desc.Text = updated_description;
+
+                //update projectDetails list
+                projectsDetails[project_selection].projectName = updated_name;
+                projectsDetails[project_selection].projectDescription = updated_description;
+                projectsDetails[project_selection].projectLocation = updated_location;
+
+                //move whole folder to the new location if either name or location has been changed
+                if (!location.Equals(updated_location) || !name.Equals(updated_name))
+                {
+
+                    string sourceDirName = @"" + location + "\\" + name;
+                    string destDirName = @"" + updated_location + "\\" + updated_name;
+
+                    try
+                    {
+                        loadFile(sourceDirName + "\\projData.dat");
+                        proj.setProjName(updated_name);
+                        proj.setProjDesc(updated_description);
+                        proj.setProjLocation(destDirName);
+                        proj.setProjSaveLocation(destDirName + "\\projData.dat");
+                        saveFile(sourceDirName);
+                        Directory.Move(sourceDirName, destDirName);
+
+
+                    }
+                    catch (IOException exp) //if project name Foo => foo
+                    {
+
+                        MessageBoxResult mbr = MessageBox.Show(exp.Message);
+
+                    }
+
+                }
+
+            }
+
+            this.Opacity = 1;
+
+        }
+
+        static void lineChanger(string newText, string fileName, int line_to_edit)
+        {
+            string[] arrLine = File.ReadAllLines(fileName);
+            arrLine[line_to_edit] = newText;
+            File.WriteAllLines(fileName, arrLine);
+        }
+
+        //here above
 
     }
 }
