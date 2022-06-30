@@ -642,6 +642,151 @@ namespace ImgChecker.MVVM.View
 
         }
 
+        public void recent_project_clicked(object sender, RoutedEventArgs e)
+        {
+
+            //check which border clicked?
+            Border clicked_recentBorder = (Border)sender;
+            int rborder_index = recentProjects.IndexOf(clicked_recentBorder);
+
+            Border b = recentProjects[rborder_index];
+
+            var sp = (StackPanel)b.Child;
+            var txtblock = (TextBlock)sp.Children[1];
+
+            string recent_project_name = txtblock.Text; //recent project name
+
+            string project_folder_path = "";
+            string project_desc = "";
+            string pro_create = "";
+
+            int i = -1;
+
+            //find project from projectsDetails list
+            foreach (MenuProject item in projectsDetails)
+            {
+                i++;
+
+                if (recent_project_name.Equals(item.projectName))
+                {
+                    project_folder_path = item.projectLocation;
+                    project_desc = item.projectDescription;
+                    pro_create = item.projectCreationDate;
+
+                    break;
+
+                }
+
+            }
+
+            //check if the project could not be found?
+            if (!Directory.Exists(project_folder_path + "\\" + recent_project_name)) //textblock.Foreground == Brushes.Red
+            {
+
+                //display error message
+                MessageBoxResult mb = MessageBox.Show("Project folder could not be located.");
+
+            }
+            else
+            {
+                //to update modified time in txtfile
+                string path = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + "ProjectDetails.txt";
+
+                //name
+                //description
+                //location
+                //project create date
+                //project modified date
+
+                string content = recent_project_name + ","
+                + project_desc + ","
+                + project_folder_path + ","
+                + pro_create + ","
+                + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                //update modified time in text file
+                lineChanger(content, path, i);
+
+                //TO BE CHANGED TO REAL SEGREGATION WINDOW
+                //open image segregation window
+                string filepath = project_folder_path + "\\" + recent_project_name;
+
+                MainWindow dsw = new MainWindow(filepath, recent_project_name, project_desc, project_folder_path, pro_create, i);
+                dsw.Show();
+
+                //close main menu window
+                //this.Close();
+                Window win = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "SegregatorMainMenuWindow");
+                win.Close();
+
+            }
+
+        }
+
+        public void project_clicked(object sender, RoutedEventArgs e) //user clicked on a project row to open a project
+        {
+
+            //check which border clicked?
+            Border clicked_border = (Border)sender;
+            int border_index = projectRows.IndexOf(clicked_border);
+
+            var textblock1 = (TextBlock)project_child1Sp[border_index].Children[0];
+            var textblock2 = (TextBlock)project_child1Sp[border_index].Children[1];
+
+            //check if the project could not be found?
+            if (!Directory.Exists(textblock2.Text + "\\" + textblock1.Text)) //textblock.Foreground == Brushes.Red
+            {
+
+                //display error message
+                MessageBoxResult mb = MessageBox.Show("Project folder could not be located.");
+
+            }
+            else
+            {
+
+                //get the project folder path
+                string project_folder_path = projectsDetails[border_index].projectLocation;
+
+                //get the project name
+                string project_folder_name = projectsDetails[border_index].projectName;
+
+                string project_desc = projectsDetails[border_index].projectDescription;
+
+                string pro_create = projectsDetails[border_index].projectCreationDate;
+
+                //update modified time in txtfile
+                string path = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + "ProjectDetails.txt";
+
+                //name
+                //description
+                //location
+                //project create date
+                //project modified date
+
+                string content = project_folder_name + ","
+                + project_desc + ","
+                + project_folder_path + ","
+                + pro_create + ","
+                + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                //update modified time in text file
+                lineChanger(content, path, border_index);
+
+                //TO BE CHANGED TO REAL SEGREGATION WINDOW
+                //open image segregation window
+                string filepath = project_folder_path + "\\" + project_folder_name;
+
+                MainWindow dsw = new MainWindow(filepath, project_folder_name, project_desc, project_folder_path, pro_create, border_index);
+                dsw.Show();
+
+                //close main menu window
+                //this.Close();
+                Window win = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "SegregatorMainMenuWindow");
+                win.Close();
+
+            }
+
+        }
 
         //here above
 
