@@ -339,5 +339,223 @@ namespace ImgChecker
             checkActive();
         }
 
+        private void btnRevert_Click(object sender, RoutedEventArgs e)
+        {
+            revertimg = (Image)this.FindName("imgi");
+            string tempfilename = System.IO.Path.GetFileName(revertimg.Source.ToString());
+            string targetfile = "", ffolder = "";
+            bool pfound = false, ffound = false;
+            int pindex = -1, findex = -1;
+
+            //check the source is from pass or fail
+            for (int i = 0; i < pImageFiles.Count; i++)
+            {
+                if (pImageFiles.ElementAt(i) == tempfilename && activepreviewtab == "Pass")
+                {
+                    targetfile = tempfilename;
+                    pfound = true;
+                    pindex = i;
+                    break;
+                }
+            }
+
+            if (pfound == false)
+            {
+                for (int i = 0; i < fImageFiles.Count; i++)
+                {
+                    if (fImageFiles.ElementAt(i).getRejectFileName() == tempfilename && activepreviewtab == "Reject")
+                    {
+                        targetfile = tempfilename;
+                        ffolder = fImageFiles.ElementAt(i).getRejectFolderName();
+                        ffound = true;
+                        findex = i;
+                        break;
+                    }
+                }
+            }
+            string targetfolder = "";
+            //remove from list and add back to new list
+            //move the image
+
+
+            if (pfound)
+            {
+                string pextpart = "";
+                string pnamepart = "";
+                bool dupdetect = false;
+                if (File.Exists(uploadPath + "\\" + tempfilename) || imageFiles.Contains(pImageFiles.ElementAt(pindex)))
+                {
+                    MessageBoxResult mbresult;
+                    mbresult = MessageBox.Show("Duplicate file name found at target location! Would you like to rename the image file name?\n" + uploadPath + "\\" + tempfilename, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (mbresult == MessageBoxResult.Yes)
+                    {
+                        pextpart = Path.GetExtension(uploadPath + "\\" + tempfilename);
+                        pnamepart = Path.GetFileNameWithoutExtension(uploadPath + "\\" + tempfilename);
+                        dupdetect = true;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                string newrename = "";
+
+                if (dupdetect == true)
+                {
+
+                    bool renameprocess = true;
+                    int incNum = 1;
+                    do
+                    {
+                        if (File.Exists(uploadPath + "\\" + pnamepart + " (" + incNum + ")" + pextpart))
+                        {
+                            incNum++;
+                        }
+                        else
+                        {
+                            System.IO.File.Move(passPath + "\\" + tempfilename, uploadPath + "\\" + pnamepart + " (" + incNum + ")" + pextpart);
+                            renameprocess = false;
+                            newrename = pnamepart + " (" + incNum + ")" + pextpart;
+                        }
+
+                    } while (renameprocess);
+                }
+                else
+                {
+                    System.IO.File.Move(passPath + "\\" + tempfilename, uploadPath + "\\" + tempfilename);
+                    newrename = tempfilename;
+                }
+                imageFiles.Insert(0, newrename);
+                pImageFiles.RemoveAt(pindex);
+
+                passcount--;
+                passCount.Content = "Total Pass Count: " + passcount;
+
+            }
+            else if (ffound)
+            {
+
+                string fextpart = "";
+                string fnamepart = "";
+                bool fdupdetect = false;
+
+                if (File.Exists(uploadPath + "\\" + tempfilename) || imageFiles.Contains(fImageFiles.ElementAt(findex).getRejectFileName()))
+                {
+                    MessageBoxResult mbresult;
+                    mbresult = MessageBox.Show("Duplicate file name found at target location! Would you like to rename the image file name?\n" + uploadPath + "\\" + tempfilename, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (mbresult == MessageBoxResult.Yes)
+                    {
+                        fextpart = Path.GetExtension(uploadPath + "\\" + tempfilename);
+                        fnamepart = Path.GetFileNameWithoutExtension(uploadPath + "\\" + tempfilename);
+                        fdupdetect = true;
+
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+
+                string newrename = "";
+                if (fdupdetect)
+                {
+                    bool renameprocess = true;
+                    int incNum = 1;
+                    do
+                    {
+                        if (File.Exists(uploadPath + "\\" + fnamepart + " (" + incNum + ")" + fextpart))
+                        {
+                            incNum++;
+                        }
+                        else
+                        {
+                            System.IO.File.Move(rejectPath + "\\" + ffolder + "\\" + tempfilename, uploadPath + "\\" + fnamepart + " (" + incNum + ")" + fextpart);
+                            renameprocess = false;
+                            newrename = fnamepart + " (" + incNum + ")" + fextpart;
+                        }
+
+                    } while (renameprocess);
+
+                }
+                else
+                {
+                    try
+                    {
+                        System.IO.File.Move(rejectPath + "\\" + ffolder + "\\" + tempfilename, uploadPath + "\\" + tempfilename);
+                        newrename = tempfilename;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("The target file is missing!");
+                        imgi.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                        if (currTabName == "All")
+                        {
+                            changePage(currAllPage);
+                        }
+                        else if (currTabName == "Pass")
+                        {
+                            changePassPage(currPassPage);
+                        }
+                        else if (currTabName == "Reject" && rejectFolderContent.Visibility.ToString() == "Visible")
+                        {
+                            changeRejectPage(currRejectPage, "special1", "");
+                        }
+                        return;
+                    }
+
+                }
+
+                imageFiles.Insert(0, newrename);
+                targetfolder = fImageFiles.ElementAt(findex).getRejectFolderName();
+                fImageFiles.RemoveAt(findex);
+
+                rejectcount--;
+                rejectCount.Content = "Total Reject Count: " + rejectcount;
+            }
+            numProgress--;
+            progressCount.Content = "Overall progress: " + numProgress + "/" + totalNum;
+
+            //update counter
+            updateSummaryCount();
+            updateRejectFolderList();
+
+            //update upload list
+            //loadImage();
+
+            //update view
+            changePage(1);
+
+            if (pfound && currTabName == "Pass")
+            {
+                changePassPage(1);
+            }
+            if (ffound && currTabName == "Reject" && rejectFolderContent.Visibility.ToString() == "Visible")
+            {
+                if (currRejectFolder != "")
+                {
+                    changeRejectPage(1, "special", targetfolder);
+                }
+            }
+
+            //after reset set to the first image of upload
+            revertimg.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+            pfBtn = (Button)this.FindName("btnPass");
+            pfBtn.IsEnabled = false;
+            pfBtn = (Button)this.FindName("btnReject");
+            pfBtn.IsEnabled = false;
+            pfBtn = (Button)this.FindName("btnRevert");
+            pfBtn.IsEnabled = false;
+            setButtonStatus("btnDeleteImg", false);
+            btnPass.Visibility = System.Windows.Visibility.Visible;
+            btnReject.Visibility = System.Windows.Visibility.Visible;
+            btnRevert.Visibility = System.Windows.Visibility.Collapsed;
+
+            checkActive();
+            saveFile();
+        }
     }
 }
