@@ -358,6 +358,203 @@ namespace ImgChecker
 
         //-----------------end pass page navigation-------------------
 
+        //=================reject page navigation====================
+        private void btnRejectPrev_Click(object sender, RoutedEventArgs e)
+        {
+            RejectFolder temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+            string foldernameselected = temp.getRejectFolderName();
+
+            counter = (Label)this.FindName("rejectPage");
+            currRejectPage--;
+            counter.Content = currRejectPage;
+
+            if (currRejectPage != 1 || countSelectedCategory(foldernameselected) > 10)
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (currRejectPage == 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+            changeRejectPage(currRejectPage, "overview", "");
+        }
+
+        private void btnRejectNext_Click(object sender, RoutedEventArgs e)
+        {
+            RejectFolder temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+            string foldernameselected = temp.getRejectFolderName();
+
+            counter = (Label)this.FindName("rejectPage");
+            currRejectPage++;
+            counter.Content = currRejectPage;
+
+            if (currRejectPage != 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = true;
+            }
+            else
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+            int finalpage = (countSelectedCategory(foldernameselected) - 1) / 10 + 1;
+
+            if (currRejectPage == finalpage)
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = false;
+            }
+            else
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            changeRejectPage(currRejectPage, "overview", "");
+        }
+
+        private void changeRejectPage(int currPage, string caseOption, string specialcase)
+        {
+            RejectFolder temp;
+            string foldernameselected = "";
+            if (rejectOverviewListBox.SelectedItem != null || rejectListBox.SelectedItem != null)
+            {
+                if (caseOption == "overview")
+                {
+                    temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+                    foldernameselected = temp.getRejectFolderName();
+                }
+                else if (caseOption == "content")
+                {
+                    temp = (RejectFolder)rejectListBox.SelectedItem;
+                    foldernameselected = temp.getRejectFolderName();
+                }
+            }
+
+            if (caseOption == "special")
+            {
+                foldernameselected = specialcase;
+            }
+
+            if (caseOption == "special1")
+            {
+                foldernameselected = currRejectFolder;
+            }
+
+            int num = 1;
+
+            List<RejectFile> tempList = new List<RejectFile>();
+
+            for (int i = 0; i < fImageFiles.Count; i++)
+            {
+                if (fImageFiles.ElementAt(i).getRejectFolderName() == foldernameselected)
+                {
+                    tempList.Add(new RejectFile(foldernameselected, fImageFiles.ElementAt(i).getRejectFileName()));
+                }
+            }
+
+
+            for (int count = countSelectedCategory(foldernameselected) - 1; count >= countSelectedCategory(foldernameselected) - (currRejectPage * 10); count--)
+            {
+
+                img = (Image)this.FindName("Fimg" + num);
+
+                if (count >= 0)
+                {
+                    string fullpath = rejectPath + "\\" + tempList.ElementAt(count).getRejectFolderName() + "\\" + tempList.ElementAt(count).getRejectFileName();
+                    img.Source = setImgSource(fullpath, "sub");
+                    num++;
+
+                }
+
+                else
+                {
+                    img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                    num++;
+                }
+
+            }
+            checkActive();
+        }
+
+        private void btnRejectFirst_Click(object sender, RoutedEventArgs e)
+        {
+            RejectFolder temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+            string foldernameselected = temp.getRejectFolderName();
+
+            counter = (Label)this.FindName("rejectPage");
+            currRejectPage = 1;
+            counter.Content = currRejectPage;
+
+
+            if (currRejectPage != 1 || countSelectedCategory(foldernameselected) > 10)
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (currRejectPage == 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+
+            changeRejectPage(currRejectPage, "overview", "");
+        }
+
+        private void btnRejectLast_Click(object sender, RoutedEventArgs e)
+        {
+            RejectFolder temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+            string foldernameselected = temp.getRejectFolderName();
+
+            counter = (Label)this.FindName("rejectPage");
+            currRejectPage = (countSelectedCategory(foldernameselected) - 1) / 10 + 1;
+            counter.Content = currRejectPage;
+
+            if (currRejectPage != 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (countSelectedCategory(foldernameselected) < currRejectPage * 10 + 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = false;
+            }
+
+            changeRejectPage(currRejectPage, "overview", "");
+        }
+
+        //-----------------end pass page navigation-------------------
+
 
         public void saveFile()
         {
