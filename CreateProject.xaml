@@ -1,0 +1,243 @@
+﻿<Window x:Class="ImgChecker.CreateProject"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImgChecker"
+        mc:Ignorable="d"
+        Title="Create a New Project" 
+        Height="630" 
+        Width="840"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- SideButtonStyle #begin -->
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <ControlTemplate x:Key="SideButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" TargetName="border" Value="DimGray"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="DimGray"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="DarkSlateGray"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="DarkSlateGray"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!-- SideButtonStyle #end -->
+
+        <!-- CreateButtonStyle #begin -->
+        <ControlTemplate x:Key="CreateButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" TargetName="border" Value="#A57D02"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#A57D02"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="#FF6A6A6A"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF6A6A6A"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!-- CreateButtonStyle #end -->
+
+        <!-- CancelButtonStyle #begin -->
+        <ControlTemplate x:Key="CancelButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" TargetName="border" Value="#DADBDC"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#DADBDC"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="Silver"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="Silver"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!-- CancelButtonStyle #end -->
+    </Window.Resources>
+
+    <Grid Style="{StaticResource BrightGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="520"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="440"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Style="{StaticResource DullGridStyle}" 
+                  Grid.Column="1">
+
+                <!-- here -->
+            </Grid>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Style="{StaticResource LabelStyle}" 
+                       Grid.Row="0"
+                       x:Name="SettingsLabel" 
+                       Content="Settings"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       FontWeight="DemiBold"
+                       Margin="10,20,0,0"/>
+
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel x:Name="settings_stack_panel">
+                        <StackPanel Margin="10,20,0,0">
+                            <Label Style="{StaticResource LabelStyle}" 
+                                   x:Name="ProjectNameLabel"
+                                   Content="Project Name *" />
+                            <TextBox Style="{StaticResource TextBoxStyle2}" 
+                                     x:Name="ProjectNameTextBox" 
+                                     HorizontalAlignment="Left" 
+                                     TextWrapping="NoWrap" 
+                                     Margin="6,0,0,0"
+                                     Width="340"
+                                     TextChanged="TextBox_ProjectName"/>
+                            <Label x:Name="projectNameError"
+                                   Margin="2,0,0,0"
+                                   Content="This field is required and must not be left empty."/>
+                        </StackPanel>
+
+                        <StackPanel Margin="10,10,0,0">
+                            <Label Style="{StaticResource LabelStyle}" 
+                                   x:Name="DescriptionLabel"
+                                   Content="Description"/>
+                            <TextBox Style="{StaticResource TextBoxStyle2}" 
+                                     x:Name="DescriptionTextBox" 
+                                     HorizontalAlignment="Left"
+                                     TextWrapping="NoWrap" 
+                                     Margin="6,0,0,0"
+                                     Width="340"
+                                     TextChanged="TextBox_ProjectDescription"/>
+                            <Label x:Name="projectDescriptionError"
+                                   Margin="2,0,0,0"
+                                   Content="Description cannot contain commas."/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" 
+                                    Margin="10,20,0,0">
+                            <StackPanel>
+                                <Label Style="{StaticResource LabelStyle}" 
+                                       x:Name="LocationLabel"
+                                       Content="Location *" />
+                                <TextBox Style="{StaticResource TextBoxStyle2}" 
+                                         x:Name="LocationTextBox" 
+                                         HorizontalAlignment="Left" 
+                                         TextWrapping="NoWrap" 
+                                         Margin="6,0,0,0"
+                                         Width="315"
+                                         TextChanged="TextBox_ProjectLocation"/>
+                                <Label x:Name="projectLocationError"  
+                                       Margin="2,0,0,0" 
+                                       Content="This field is required and must not be left empty." />
+                            </StackPanel>
+
+                            <Button x:Name="LocationButton"  
+                                    VerticalAlignment="Center" 
+                                    Height="20"
+                                    Margin="12,0,0,0"
+                                    Width="15"
+                                    Click="Button_ChooseProjectLocation"
+                                    Content="...">
+                                <!--
+                                <Button.Content>
+                                    <TextBlock>...</TextBlock>
+                                </Button.Content>
+                                -->
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Margin="10,20,0,0" 
+                                    x:Name="fail_sp_1">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Style="{StaticResource LabelStyle}" 
+                                       x:Name="fail_lb_1"
+                                       Content="Reject Folder 1"
+                                       Width="80"/>
+                                <Label Style="{StaticResource LabelStyle}" 
+                                       x:Name="dot"
+                                       Content=":"/>
+                                <TextBox Style="{StaticResource TextBoxStyle2}" 
+                                         x:Name="fail_txtbox_1" 
+                                         TextWrapping="NoWrap"
+                                         VerticalAlignment="Center" 
+                                         Width="230" 
+                                         TextChanged="FailFolder1Name_TextChanged"/>
+                            </StackPanel>
+                            <Label x:Name="fail_errorlb_1" 
+                                   Content="This field is required and must not be left empty." />
+                        </StackPanel>
+
+                        <Button Template="{DynamicResource SideButtonStyle}"
+                            Style="{StaticResource SideButton}" 
+                            x:Name="AddFailFolderButton"
+                            BorderThickness="0"
+                            Background="Gray"
+                            Foreground="#FFF1F1F1"
+                            Margin="0,20,0,0"
+                            Content="Add Reject Folder" 
+                            Width="188" 
+                            Height="33" 
+                            Click="Button_AddFailFolder"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        
+        <!-- here-->
+
+    </Grid>
+</Window>
