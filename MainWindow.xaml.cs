@@ -66,6 +66,28 @@ namespace ImgChecker
         private string fc;
         private int projindex;
 
+        //===============Pass Functionality===============
+        private void btnPass_Click(object sender, RoutedEventArgs e)
+        {
+            //TO DO LIST: 1. when duplicate file exist at location
+
+            string[] files = Directory.GetFiles(uploadPath);
+
+            img = (Image)this.FindName("imgi");
+
+            if (imageFiles.Count == 0)
+            {
+                setButtonStatus("btnPass", false);
+                setButtonStatus("btnReject", false);
+                MessageBox.Show("There are no image to be checked!\nUpload new image to continue");
+                return;
+            }
+        }
+
+
+            //=================all page navigation====================
+            private void btnAllPrev_Click(object sender, RoutedEventArgs e)
+            
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             //TO DO LIST: 1. when duplicate file exist at location
@@ -138,6 +160,7 @@ namespace ImgChecker
 
         //=================all page navigation====================
         private void btnAllPrev_Click(object sender, RoutedEventArgs e)
+
         {
             counter = (Label)this.FindName("allPage");
             currAllPage--;
