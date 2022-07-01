@@ -66,6 +66,76 @@ namespace ImgChecker
         private string fc;
         private int projindex;
 
+        private void btnUpload_Click(object sender, RoutedEventArgs e)
+        {
+            //TO DO LIST: 1. when duplicate file exist at location
+
+            var codecs = ImageCodecInfo.GetImageEncoders();
+            var codecFilter = "Image Files|";
+            foreach (var codec in codecs)
+            {
+                codecFilter += codec.FilenameExtension + ";";
+            }
+
+            var dialog = new Microsoft.Win32.OpenFileDialog()
+            {
+                Filter = codecFilter,
+                Multiselect = true,
+                DefaultExt = ".jpg",
+                FileName = "",
+                Title = "Select a picture",
+            };
+
+            //dialog.Filter = codecFilter;
+            //var dialog = new Microsoft.Win32.OpenFileDialog();
+            //dialog.Title = "Select a picture";
+            //dialog.FileName = ""; // Default file name
+            //dialog.DefaultExt = ".jpg"; // Default file extension
+            //dialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+            //  "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+            //  "Portable Network Graphic (*.png)|*.png"; // Filter files by extension
+            //dialog.Multiselect = true;
+
+            // Show open file dialog box
+            bool? result = dialog.ShowDialog();
+            uploaderror = false;
+
+            if (result == true)
+            {
+                pbBar.Value = 0;
+                ProgressBox.Visibility = System.Windows.Visibility.Visible;
+                ProgressBox_progress.Visibility = System.Windows.Visibility.Visible;
+                foreach (string file in dialog.FileNames)
+                {
+                    uploadList.Add(file);
+                    //try
+                    //{
+                    //    sourceFile = file;
+                    //    destinationFile = uploadPath + "\\" + System.IO.Path.GetFileName(file);
+                    //    System.IO.File.Copy(sourceFile, destinationFile);
+                    //    imageFiles.Add(System.IO.Path.GetFileName(file));
+                    //    totalNum++;
+                    //}
+                    //catch
+                    //{
+                    //    uploadFailList.Add(file);
+                    //    error = true;
+                    //}
+                }
+                currUpCount = 0;
+                totalUpCount = uploadList.Count;
+
+                sUploadButton_Click(new object(), new EventArgs());
+
+
+
+
+
+
+            }
+
+        }
+
         //=================all page navigation====================
         private void btnAllPrev_Click(object sender, RoutedEventArgs e)
         {
