@@ -1115,7 +1115,654 @@ namespace ImgChecker.MVVM.View
 
         }
 
+        //default - ascending
+        //click1 - descending
+        //click2 - ascending
 
+        public void project_name_click(object sender, MouseEventArgs e)
+        {
+
+            //remove all borders inside the scrollviewer
+            foreach (Border row in projectRows)
+            {
+                scrollviewer_sp.Children.Remove(row);
+
+            }
+
+            List<string> project_names = new List<string>(); //correct order of project names
+
+            foreach (MenuProject p in projectsDetails)
+            {
+                project_names.Add(p.projectName);
+            }
+
+            List<Border> temp = new List<Border>(); //temporary storage of borders in a certain (desc/asc) order
+
+            if (proNameSrt == 0)
+            {
+
+                int j = 0;
+
+                //change picture
+                projectNameSRT.Source = new BitmapImage(new Uri("pack://application:,,,/ImgChecker;component/Resources/sort-down-24.png"));
+
+                //sort desc
+                project_names.Sort();
+                project_names.Reverse();
+
+                foreach (string s in project_names)
+                {
+                    j = 0;
+
+                    foreach (StackPanel sp in project_child1Sp)
+                    {
+
+                        if (String.Equals(s, sp.Children.OfType<TextBlock>().FirstOrDefault().Text))
+                        {
+                            //add border ref in temp border list
+                            Border b = projectRows[j];
+
+                            temp.Add(b);
+
+
+                        }
+
+                        j++;
+
+                    }
+
+                }
+
+                foreach (Border bd in temp)
+                {
+
+                    scrollviewer_sp.Children.Add(bd);
+
+                }
+
+                proNameSrt = 1;
+            }
+            else
+            {
+
+                int j = 0;
+
+                //change picture
+                projectNameSRT.Source = new BitmapImage(new Uri("pack://application:,,,/ImgChecker;component/Resources/sort-up-24.png"));
+
+                //sort asc
+                project_names.Sort();
+
+                foreach (string s in project_names)
+                {
+                    j = 0;
+
+                    foreach (StackPanel sp in project_child1Sp)
+                    {
+
+                        if (String.Equals(s, sp.Children.OfType<TextBlock>().FirstOrDefault().Text))
+                        {
+                            //add border ref in temp border list
+                            Border b = projectRows[j];
+
+                            temp.Add(b);
+
+                        }
+
+                        j++;
+
+                    }
+
+
+                }
+
+                foreach (Border bd in temp)
+                {
+
+                    scrollviewer_sp.Children.Add(bd);
+
+                }
+
+                proNameSrt = 0;
+            }
+
+
+        }
+
+
+        public void description_click(object sender, MouseEventArgs e)
+        {
+
+            //remove all borders inside the scrollviewer
+            foreach (Border row in projectRows)
+            {
+                scrollviewer_sp.Children.Remove(row);
+
+            }
+
+            List<string> project_descriptions = new List<string>(); //correct order of project descriptions
+
+            foreach (MenuProject p in projectsDetails)
+            {
+                project_descriptions.Add(p.projectDescription);
+            }
+
+            List<Border> temp = new List<Border>(); //temporary storage of borders in a certain (desc/asc) order
+
+            List<string> project_names = new List<string>();
+
+            if (proDescSrt == 0)
+            {
+
+                int j = 0;
+
+                //change picture
+                projectDescSRT.Source = new BitmapImage(new Uri("pack://application:,,,/ImgChecker;component/Resources/sort-down-24.png"));
+
+                //sort desc
+                project_descriptions.Sort();
+                project_descriptions.Reverse();
+
+
+                foreach (string s in project_descriptions)
+                {
+                    j = 0;
+
+                    foreach (StackPanel sp in project_parentSp)
+                    {
+
+                        var txt = (TextBlock)sp.Children[1];  //description
+                        var _sp = (StackPanel)sp.Children[0];
+                        var txt2 = (TextBlock)_sp.Children[0]; //project name
+
+                        if (String.Equals(s, txt.Text) && !project_names.Contains(txt2.Text))
+                        {
+                            //add border ref in temp border list
+                            Border b = projectRows[j];
+
+                            temp.Add(b);
+                            project_names.Add(txt2.Text);
+
+                            break;
+
+                        }
+
+                        j++;
+
+                    }
+
+                }
+
+                foreach (Border bd in temp)
+                {
+
+                    scrollviewer_sp.Children.Add(bd);
+
+                }
+
+                proDescSrt = 1;
+
+            }
+            else
+            {
+                int j = 0;
+
+                //change picture
+                projectDescSRT.Source = new BitmapImage(new Uri("pack://application:,,,/ImgChecker;component/Resources/sort-up-24.png"));
+
+                //sort asc
+                project_descriptions.Sort();
+
+                foreach (string s in project_descriptions)
+                {
+                    j = 0;
+
+                    foreach (StackPanel sp in project_parentSp)
+                    {
+
+                        var txt = (TextBlock)sp.Children[1];  //description
+                        var _sp = (StackPanel)sp.Children[0];
+                        var txt2 = (TextBlock)_sp.Children[0]; //project name
+
+                        if (String.Equals(s, txt.Text) && !project_names.Contains(txt2.Text))
+                        {
+                            //add border ref in temp border list
+                            Border b = projectRows[j];
+
+                            temp.Add(b);
+                            project_names.Add(txt2.Text);
+
+                            break;
+
+                        }
+
+                        j++;
+
+                    }
+
+
+                }
+
+                foreach (Border bd in temp)
+                {
+
+                    scrollviewer_sp.Children.Add(bd);
+
+                }
+
+                proDescSrt = 0;
+            }
+
+        }
+
+        public void date_created_click(object sender, MouseEventArgs e)
+        {
+
+            //remove all borders inside the scrollviewer
+            foreach (Border row in projectRows)
+            {
+                scrollviewer_sp.Children.Remove(row);
+
+            }
+
+            List<string> project_create_dates = new List<string>(); //correct order of project creation dates
+
+            foreach (MenuProject p in projectsDetails)
+            {
+                project_create_dates.Add(p.projectCreationDate);
+            }
+
+            List<Border> temp = new List<Border>(); //temporary storage of borders in a certain (desc/asc) order
+
+            List<string> project_names = new List<string>();
+
+            if (proCreatedSrt == 0)
+            {
+                int j = 0;
+
+                //change picture
+                projectCreatedSRT.Source = new BitmapImage(new Uri("pack://application:,,,/ImgChecker;component/Resources/sort-down-24.png"));
+
+                //sort desc
+                project_create_dates.Sort();
+                project_create_dates.Reverse();
+
+                foreach (string s in project_create_dates)
+                {
+                    j = 0;
+
+                    foreach (StackPanel sp in project_parentSp)
+                    {
+
+                        var txt = (TextBlock)sp.Children[2];  //project creation dates
+                        var _sp = (StackPanel)sp.Children[0];
+                        var txt2 = (TextBlock)_sp.Children[0]; //project name
+
+                        if (String.Equals(s, txt.Text) && !project_names.Contains(txt2.Text))
+                        {
+                            //add border ref in temp border list
+                            Border b = projectRows[j];
+
+                            temp.Add(b);
+                            project_names.Add(txt2.Text);
+
+                            break;
+
+                        }
+
+                        j++;
+
+                    }
+
+                }
+
+                foreach (Border bd in temp)
+                {
+
+                    scrollviewer_sp.Children.Add(bd);
+
+                }
+
+                proCreatedSrt = 1;
+            }
+            else
+            {
+
+                int j = 0;
+
+                //change picture
+                projectCreatedSRT.Source = new BitmapImage(new Uri("pack://application:,,,/ImgChecker;component/Resources/sort-up-24.png"));
+
+                //sort asc
+                project_create_dates.Sort();
+
+                foreach (string s in project_create_dates)
+                {
+                    j = 0;
+
+                    foreach (StackPanel sp in project_parentSp)
+                    {
+
+                        var txt = (TextBlock)sp.Children[2];  //project creation dates
+                        var _sp = (StackPanel)sp.Children[0];
+                        var txt2 = (TextBlock)_sp.Children[0]; //project name
+
+                        if (String.Equals(s, txt.Text) && !project_names.Contains(txt2.Text))
+                        {
+                            //add border ref in temp border list
+                            Border b = projectRows[j];
+
+                            temp.Add(b);
+                            project_names.Add(txt2.Text);
+
+                            break;
+
+                        }
+
+                        j++;
+
+                    }
+
+                }
+
+                foreach (Border bd in temp)
+                {
+
+                    scrollviewer_sp.Children.Add(bd);
+
+                }
+
+                proCreatedSrt = 0;
+            }
+
+        }
+
+        public void last_modified_click(object sender, MouseEventArgs e)
+        {
+
+            //remove all borders inside the scrollviewer
+            foreach (Border row in projectRows)
+            {
+                scrollviewer_sp.Children.Remove(row);
+
+            }
+
+            List<string> project_modified_duration = new List<string>();
+            foreach (MenuProject p in projectsDetails)
+            {
+                project_modified_duration.Add(p.projectModifiedTime);
+
+            }
+
+            //extract the num of hours out
+            List<string> project_modified_duration_mins = new List<string>(); //to store correct order
+            string num_mins = "";
+            string t;
+
+            foreach (string s in project_modified_duration)
+            {
+                t = "";
+
+                if (s.IndexOf("days", StringComparison.OrdinalIgnoreCase) >= 0) //convert into hours in necessary
+                {
+
+                    for (int i = 0; i < s.Length; i++) //extract days
+                    {
+                        if (Char.IsDigit(s[i]))
+                            t += s[i];
+                    }
+
+                    num_mins = "" + (int.Parse(t) * 24 * 60);
+
+                }
+                else if (s.IndexOf("hours", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+
+                    for (int i = 0; i < s.Length; i++) //extract hours
+                    {
+                        if (Char.IsDigit(s[i]))
+                            t += s[i];
+                    }
+
+                    num_mins = "" + (int.Parse(t) * 60);
+
+                }
+                else if (s.IndexOf("minutes", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+
+                    for (int i = 0; i < s.Length; i++) //extract minutes
+                    {
+                        if (Char.IsDigit(s[i]))
+                            t += s[i];
+                    }
+
+                    num_mins = t;
+
+                }
+                else //less than a minutes ago = 0 minute
+                {
+
+                    num_mins = "" + 0;
+
+                }
+
+                project_modified_duration_mins.Add(num_mins);
+
+            }
+
+            List<Border> temp = new List<Border>(); //temporary storage of borders in a certain (desc/asc) order
+
+            List<string> project_names = new List<string>();
+
+            if (proModifiedSrt == 0)
+            {
+
+                int j = 0;
+
+                //change picture
+                projectModifiedSRT.Source = new BitmapImage(new Uri("pack://application:,,,/ImgChecker;component/Resources/sort-down-24.png"));
+
+
+                List<int> myInts = project_modified_duration_mins.Select(int.Parse).ToList();
+
+
+                //sort desc
+                myInts.Sort();
+                myInts.Reverse();
+
+
+                List<string> myStrings = myInts.ConvertAll<string>(x => x.ToString());
+                project_modified_duration_mins = new List<string>(myStrings);
+
+
+                foreach (string s in project_modified_duration_mins)
+                {
+                    j = 0;
+
+                    foreach (StackPanel sp in project_parentSp)
+                    {
+
+                        var txt = (TextBlock)sp.Children[3];  //project last modified durations
+                        var _sp = (StackPanel)sp.Children[0];
+                        var txt2 = (TextBlock)_sp.Children[0]; //project name
+
+                        string _temp = "";
+                        string concat_str = "";
+
+                        if (txt.Text.IndexOf("days", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+
+                            for (int i = 0; i < txt.Text.Length; i++) //extract days
+                            {
+                                if (Char.IsDigit(txt.Text[i]))
+                                    concat_str += txt.Text[i];
+                            }
+
+                            _temp = "" + (int.Parse(concat_str) * 24 * 60);
+
+                        }
+                        else if (txt.Text.IndexOf("hours", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+
+                            for (int i = 0; i < txt.Text.Length; i++) //extract hours
+                            {
+                                if (Char.IsDigit(txt.Text[i]))
+                                    concat_str += txt.Text[i];
+                            }
+
+                            _temp = "" + (int.Parse(concat_str) * 60);
+
+                        }
+                        else if (txt.Text.IndexOf("minutes", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            for (int i = 0; i < txt.Text.Length; i++) //extract minutes
+                            {
+                                if (Char.IsDigit(txt.Text[i]))
+                                    concat_str += txt.Text[i];
+                            }
+
+                            _temp = concat_str;
+
+                        }
+                        else
+                        {
+
+                            _temp = "" + 0;
+
+                        }
+
+                        if (String.Equals(s, _temp) && !project_names.Contains(txt2.Text))
+                        {
+                            //add border ref in temp border list
+                            Border b = projectRows[j];
+
+                            temp.Add(b);
+                            project_names.Add(txt2.Text);
+
+                            break;
+
+                        }
+
+                        j++;
+
+                    }
+
+                }
+
+                foreach (Border bd in temp)
+                {
+
+                    scrollviewer_sp.Children.Add(bd);
+
+                }
+
+
+                proModifiedSrt = 1;
+            }
+            else
+            {
+
+                int j = 0;
+
+                //change picture
+                projectModifiedSRT.Source = new BitmapImage(new Uri("pack://application:,,,/ImgChecker;component/Resources/sort-up-24.png"));
+
+
+
+                List<int> myInts = project_modified_duration_mins.Select(int.Parse).ToList();
+
+
+                //sort asc
+                myInts.Sort();
+
+                List<string> myStrings = myInts.ConvertAll<string>(x => x.ToString());
+                project_modified_duration_mins = new List<string>(myStrings);
+
+                foreach (string s in project_modified_duration_mins)
+                {
+                    j = 0;
+
+                    foreach (StackPanel sp in project_parentSp)
+                    {
+
+                        var txt = (TextBlock)sp.Children[3];  //project last modified durations
+                        var _sp = (StackPanel)sp.Children[0];
+                        var txt2 = (TextBlock)_sp.Children[0]; //project name
+
+                        string _temp = "";
+                        string concat_str = "";
+
+                        if (txt.Text.IndexOf("days", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+
+                            for (int i = 0; i < txt.Text.Length; i++) //extract days
+                            {
+                                if (Char.IsDigit(txt.Text[i]))
+                                    concat_str += txt.Text[i];
+                            }
+
+                            _temp = "" + (int.Parse(concat_str) * 24 * 60);
+
+                        }
+                        else if (txt.Text.IndexOf("hours", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+
+                            for (int i = 0; i < txt.Text.Length; i++) //extract hours
+                            {
+                                if (Char.IsDigit(txt.Text[i]))
+                                    concat_str += txt.Text[i];
+                            }
+
+                            _temp = "" + (int.Parse(concat_str) * 60);
+
+                        }
+                        else if (txt.Text.IndexOf("minutes", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+
+                            for (int i = 0; i < txt.Text.Length; i++) //extract minutes
+                            {
+                                if (Char.IsDigit(txt.Text[i]))
+                                    concat_str += txt.Text[i];
+                            }
+
+                            _temp = concat_str;
+                        }
+                        else
+                        {
+
+                            _temp = "" + 0;
+
+                        }
+
+                        if (String.Equals(s, _temp) && !project_names.Contains(txt2.Text))
+                        {
+                            //add border ref in temp border list
+                            Border b = projectRows[j];
+
+                            temp.Add(b);
+                            project_names.Add(txt2.Text);
+
+                            break;
+
+                        }
+
+                        j++;
+
+                    }
+
+                }
+
+                foreach (Border bd in temp)
+                {
+
+                    scrollviewer_sp.Children.Add(bd);
+
+                }
+
+                proModifiedSrt = 0;
+            }
+
+        }
 
         //here above
 
