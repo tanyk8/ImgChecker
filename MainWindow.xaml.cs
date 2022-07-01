@@ -158,6 +158,53 @@ namespace ImgChecker
 
         }
 
+        private void btnAddReject_Click(object sender, RoutedEventArgs e)
+        {
+            InputBox.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void YesButton_Click(object sender, RoutedEventArgs e)
+        {
+            // YesButton Clicked! Let's hide our InputBox and handle the input text.
+
+
+            // Do something with the Input
+            String input = InputTextBox.Text;
+            if (input.Length == 0)
+            {
+                MessageBox.Show("Please enter a name");
+                return;
+            }
+            try
+            {
+                if (!Directory.Exists(rejectPath + "\\" + input))
+                {
+                    Directory.CreateDirectory(rejectPath + "\\" + input);
+                    InputBox.Visibility = System.Windows.Visibility.Collapsed;
+                    InputTextBox.Text = String.Empty;
+                    updateRejectFolderList();
+
+                }
+                else
+                {
+                    MessageBox.Show("The folder name already exists or cannot be used!");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("The folder name cannot be used");
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            // NoButton Clicked! Let's hide our InputBox.
+            InputBox.Visibility = System.Windows.Visibility.Collapsed;
+
+            // Clear InputBox.
+            InputTextBox.Text = String.Empty;
+        }
+
         //=================all page navigation====================
         private void btnAllPrev_Click(object sender, RoutedEventArgs e)
 
