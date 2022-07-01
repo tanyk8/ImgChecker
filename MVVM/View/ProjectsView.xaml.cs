@@ -1764,6 +1764,69 @@ namespace ImgChecker.MVVM.View
 
         }
 
+        private void btnNewProjectClicked(object sender, RoutedEventArgs e)
+        {
+
+            //TO BE CHANGED TO REAL CREATE PROJECT WINDOW
+            CreateProject dcpw = new CreateProject();
+            dcpw.ShowDialog();
+
+        }
+
+        public void saveFile(string locationSave)
+        {
+
+            proj.setProjDatetime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            proj.setPassCount(passcount);
+            proj.setRejectCount(rejectcount);
+            proj.setNumProgress(numProgress);
+            proj.setTotalNum(totalNum);
+
+            proj.setProjOriFile(imageFiles);
+            proj.setProjPassFile(pImageFiles);
+            proj.setProjRejectFile(fImageFiles);
+            proj.setProjRejectFolder(rejectFolderList);
+
+            Project.SerializeItemEdit(proj, locationSave);
+        }
+
+        public void loadFile(string savefile)
+        {
+            Project.DeserializeItem(proj, savefile);
+
+            defPath = proj.getProjLocation();
+            saveFilePath = defPath + "\\projData.dat";
+
+            uploadPath = defPath + "\\uploaded";
+            passPath = defPath + "\\pass";
+            rejectPath = defPath + "\\reject";
+
+            passcount = proj.getPassCount();
+            rejectcount = proj.getRejectCount();
+            numProgress = proj.getNumProgress();
+            totalNum = proj.getTotalNum();
+
+
+            if (proj.getProjOriFile() != null)
+            {
+                imageFiles = new List<string>(proj.getProjOriFile());
+            }
+            if (proj.getProjPassFile() != null)
+            {
+                pImageFiles = new List<string>(proj.getProjPassFile());
+            }
+            if (proj.getProjRejectFile() != null)
+            {
+                fImageFiles = new List<RejectFile>(proj.getProjRejectFile());
+            }
+            if (proj.getProjRejectFolder() != null)
+            {
+                rejectFolderList = new List<RejectFolder>(proj.getProjRejectFolder());
+            }
+
+        }
+
         //here above
 
     }
