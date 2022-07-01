@@ -62,6 +62,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\add.png" />
     <Resource Include="Resources\alert-red.png" />
     <Resource Include="Resources\close-24.png" />
