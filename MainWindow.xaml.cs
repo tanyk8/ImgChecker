@@ -119,41 +119,7 @@ namespace ImgChecker
                 }
             }
 
-            if (File.Exists(sourceFile))
-            {
-                pImageFiles.Add(Path.GetFileName(destinationFile));
-                imageFiles.RemoveAt(index);
 
-                for (int count = 0; count < 10; count++)
-                {
-                    if (count < imageFiles.Count)
-                    {
-                        img = (Image)this.FindName("img" + (count + 1));
-                        img.Source = setImgSource(uploadPath + "\\" + imageFiles.ElementAt(count), "sub");
-
-                        if (count == 0)
-                        {
-                            img = (Image)this.FindName("imgi");
-                            img.Source = setImgSource(uploadPath + "\\" + imageFiles.ElementAt(count), "main");
-                        }
-                    }
-
-                    if (imageFiles.Count < 10 && count >= imageFiles.Count)
-                    {
-                        img = (Image)this.FindName("img" + (imageFiles.Count + 1).ToString());
-                        img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
-                    }
-                }
-            }
-            try
-            {
-                System.IO.File.Move(sourceFile, destinationFile);
-            }
-            catch
-            {
-                MessageBox.Show("Error! The file is either missing or corrupted!");
-                return;
-            }
 
             passcount++;
             numProgress++;
