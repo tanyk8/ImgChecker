@@ -376,6 +376,394 @@
                 </Style.Triggers>
             </Style>
 
+            <!--Styling of Border to switch between themes-->
+            <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Background" Value="#FFF5F5F5"/>
+                        <Setter Property="BorderBrush" Value="#DADBDC"/>
+                        <Setter Property="BorderThickness" Value="1,1,1,0"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="#DADBDC" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Background" Value="#FF3E3E40"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="Black" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Border (version 2) to switch between themes-->
+            <Style x:Key="BorderStyle2" TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Background" Value="LightGray"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Background" Value="DarkGray"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Border (version 3) to switch between themes-->
+            <Style x:Key="BorderStyle3" TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Background" Value="LightGray"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="#DADBDC" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Background" Value="DarkGray"/>
+                        <Setter Property="BorderBrush" Value="White"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="Black" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Border (version 4) to switch between themes-->
+            <Style x:Key="BorderStyle4" TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Background" Value="#FFE8E8E8"/>
+                        <Setter Property="BorderBrush" Value="#DADBDC"/>
+                        <Setter Property="BorderThickness" Value="1,1,1,0"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="#DADBDC" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Background" Value="#FF252526"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="Black" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of ScrollViewer to switch between themes-->
+            <Style x:Key="ScrollViewerStyle" TargetType="{x:Type ScrollViewer}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Background" Value="#FFF5F5F5"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="#DADBDC" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Background" Value="#FF3E3E40"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="Black" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of ProjectBorderStyle-->
+            <Style x:Key="ProjectBorderStyle" TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Border.Background" Value="#FFF5F5F5"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Border.Background" Value="#FF3E3E40"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <Trigger Property="Border.IsMouseOver" Value="True">
+                        <Setter Property="Border.Background" Value="#AEAEAE" />
+                        <Setter Property="Border.Cursor" Value="Hand"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of RecentBorderStyle to switch between themes-->
+            <Style x:Key="RecentBorderStyle" TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Border.Background" Value="#FFF5F5F5"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="#DADBDC" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Border.Background" Value="#FF3E3E40"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="12" Color="Black" Direction="-75" Opacity="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <Trigger Property="Border.IsMouseOver" Value="True">
+                        <Setter Property="Border.Background" Value="#AEAEAE" />
+                        <Setter Property="Border.Cursor" Value="Hand"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of ContextMenuStyle to switch between themes-->
+            <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
+                <Style.Triggers>
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Foreground" Value="#FF1E1E1E"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                                    <Border x:Name="Border" Background="#FFF5F5F5" BorderThickness="1">
+                                        <ScrollViewer x:Name="ScrollViewer">
+                                            <ItemsPresenter />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Foreground" Value="#FFF1F1F1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                                    <Border x:Name="Border" Background="#FF3E3E40" BorderThickness="1">
+                                        <ScrollViewer x:Name="ScrollViewer">
+                                            <ItemsPresenter />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Projects icon to switch between themes-->
+            <Style x:Key="ProjectsIconStyle" TargetType="{x:Type Image}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Source" Value="/Resources/cube-gray.png"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Source" Value="/Resources/cube-white.png"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Learn icon to switch between themes-->
+            <Style x:Key="LearnIconStyle" TargetType="{x:Type Image}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Source" Value="/Resources/grad-gray.png"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Source" Value="/Resources/grad-white-new.png"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Settings icon to switch between themes-->
+            <Style x:Key="SettingsIconStyle" TargetType="{x:Type Image}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Source" Value="/Resources/settings-gray.png"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Source" Value="/Resources/settings-white-new.png"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Recent Projects icon to switch between themes-->
+            <Style x:Key="RecentProjectsIconStyle" TargetType="{x:Type Image}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Source" Value="/Resources/cube-big.png"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Source" Value="/Resources/cube-big-white.png"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Rectangle to switch between themes-->
+            <Style x:Key="RectangleStyle" TargetType="{x:Type Rectangle}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Fill" Value="#FFF5F5F5"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Fill" Value="#FF3E3E40"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Question icon to switch between themes-->
+            <Style x:Key="QuestionIconStyle" TargetType="{x:Type Image}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Source" Value="/Resources/question-gray.png"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Source" Value="/Resources/question-white.png"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of Folder icon to switch between themes-->
+            <Style x:Key="FolderIconStyle" TargetType="{x:Type Image}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Source" Value="/Resources/folder-gray.png"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Source" Value="/Resources/folder-white.png"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
+            <!--Styling of ListBox to switch between themes-->
+            <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+                <Style.Triggers>
+                    <!--Bind settings property-->
+
+                    <!--Light Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Light">
+                        <Setter Property="Background" Value="#FFE8E8E8"/>
+                    </DataTrigger>
+                    <!--End-->
+
+                    <!--Dark Mode-->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Theme}" Value="Dark">
+                        <Setter Property="Background" Value="#FF252526"/>
+                    </DataTrigger>
+                    <!--End-->
+                </Style.Triggers>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
