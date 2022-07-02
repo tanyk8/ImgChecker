@@ -82,6 +82,78 @@ namespace ImgChecker
                 MessageBox.Show("There are no image to be checked!\nUpload new image to continue");
                 return;
             }
+
+            int index = imageFiles.FindIndex(x => x.Contains(System.IO.Path.GetFileName(img.Source.ToString())));
+            string sourceFile = uploadPath + "\\" + imageFiles.ElementAt(index);
+            string destinationFile = passPath + "\\" + imageFiles.ElementAt(index);
+
+            if (File.Exists(destinationFile) || pImageFiles.Contains(imageFiles.ElementAt(index)))
+            {
+                MessageBoxResult mbresult;
+                mbresult = MessageBox.Show("Duplicate file name found at target location! Would you like to rename the image file name?\n" + destinationFile, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (mbresult == MessageBoxResult.Yes)
+                {
+                    string extpart = Path.GetExtension(destinationFile);
+                    string namepart = Path.GetFileNameWithoutExtension(destinationFile);
+                    bool repeat = true;
+                    int incNum = 1;
+
+                    do
+                    {
+                        if (File.Exists(passPath + "\\" + namepart + " (" + incNum + ")" + extpart))
+                        {
+                            incNum++;
+                        }
+                        else
+                        {
+                            repeat = false;
+                            destinationFile = passPath + "\\" + namepart + " (" + incNum + ")" + extpart;
+                        }
+                    } while (repeat);
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            if (File.Exists(sourceFile))
+            {
+                pImageFiles.Add(Path.GetFileName(destinationFile));
+                imageFiles.RemoveAt(index);
+
+                for (int count = 0; count < 10; count++)
+                {
+                    if (count < imageFiles.Count)
+                    {
+                        img = (Image)this.FindName("img" + (count + 1));
+                        img.Source = setImgSource(uploadPath + "\\" + imageFiles.ElementAt(count), "sub");
+
+                        if (count == 0)
+                        {
+                            img = (Image)this.FindName("imgi");
+                            img.Source = setImgSource(uploadPath + "\\" + imageFiles.ElementAt(count), "main");
+                        }
+                    }
+
+                    if (imageFiles.Count < 10 && count >= imageFiles.Count)
+                    {
+                        img = (Image)this.FindName("img" + (imageFiles.Count + 1).ToString());
+                        img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                    }
+                }
+            }
+            try
+            {
+                System.IO.File.Move(sourceFile, destinationFile);
+            }
+            catch
+            {
+                MessageBox.Show("Error! The file is either missing or corrupted!");
+                return;
+            }
         }
 
 
