@@ -71,7 +71,17 @@ namespace ImgChecker
         {
             //TO DO LIST: 1. when duplicate file exist at location
 
+            string[] files = Directory.GetFiles(uploadPath);
 
+            img = (Image)this.FindName("imgi");
+
+            if (imageFiles.Count == 0)
+            {
+                setButtonStatus("btnPass", false);
+                setButtonStatus("btnReject", false);
+                MessageBox.Show("There are no image to be checked!\nUpload new image to continue");
+                return;
+            }
 
             int index = imageFiles.FindIndex(x => x.Contains(System.IO.Path.GetFileName(img.Source.ToString())));
             string sourceFile = uploadPath + "\\" + imageFiles.ElementAt(index);
@@ -144,6 +154,113 @@ namespace ImgChecker
                 MessageBox.Show("Error! The file is either missing or corrupted!");
                 return;
             }
+
+            passcount++;
+            numProgress++;
+
+            counter = (Label)this.FindName("passCount");
+            counter.Content = "Total Pass Count: " + passcount;
+            counter = (Label)this.FindName("progressCount");
+            counter.Content = "Overall progress: " + numProgress + "/" + totalNum;
+
+            if (currTabName == "Pass")
+            {
+                //updatePass("load");
+
+                currPassPage = 1;
+                counter = (Label)this.FindName("passPage");
+                counter.Content = currPassPage;
+                changePassPage(currPassPage);
+
+                setButtonStatus("btnPassPrev", false);
+                setButtonStatus("btnPassFirst", false);
+
+
+                if (pImageFiles.Count > 10)
+                {
+                    setButtonStatus("btnPassNext", true);
+                    setButtonStatus("btnPassLast", true);
+                }
+                else
+                {
+                    setButtonStatus("btnPassNext", false);
+                    setButtonStatus("btnPassLast", false);
+                }
+
+            }
+
+            if (imageFiles.Count == 0)
+            {
+                img = (Image)this.FindName("img1");
+                img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                img = (Image)this.FindName("imgi");
+                img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+
+                setButtonStatus("btnPass", false);
+                setButtonStatus("btnReject", false);
+                setButtonStatus("btnDeleteImg", false);
+
+                MessageBox.Show("All image uploaded have been checked!");
+            }
+            else
+            {
+                currAllPage = 1;
+
+                if (imageFiles.Count < 11)
+                {
+                    setButtonStatus("btnAllNext", false);
+                    setButtonStatus("btnAllLast", false);
+                }
+                else
+                {
+                    setButtonStatus("btnAllNext", true);
+                    setButtonStatus("btnAllLast", true);
+                }
+
+                setButtonStatus("btnAllPrev", false);
+                setButtonStatus("btnAllFirst", false);
+
+                counter = (Label)this.FindName("allPage");
+                counter.Content = currAllPage;
+            }
+
+            if (pImageFiles.Count > 10)
+            {
+                setButtonStatus("btnPassNext", true);
+                setButtonStatus("btnPassLast", true);
+            }
+
+            if (System.IO.Path.GetFileName(imgi.Source.ToString()) == "imagemissing.png")
+            {
+                //disable and hide revert, pass and reject
+                pfBtn = (Button)this.FindName("btnPass");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnReject");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRevert");
+                pfBtn.IsEnabled = false;
+                setButtonStatus("btnDeleteImg", false);
+                btnPass.Visibility = System.Windows.Visibility.Collapsed;
+                btnReject.Visibility = System.Windows.Visibility.Collapsed;
+                btnRevert.Visibility = System.Windows.Visibility.Collapsed;
+                //show button
+                pfBtn = (Button)this.FindName("btnInfo");
+                pfBtn.IsEnabled = true;
+                btnInfo.Visibility = System.Windows.Visibility.Visible;
+                activemissingfile = "uploaded\\" + imageFiles.ElementAt(0);
+                checkActive();
+                img1.Opacity = 1;
+            }
+            else
+            {
+                checkActive();
+            }
+
+
+            panzoom = (PanAndZoom)this.FindName("border");
+            panzoom.Reset();
+
+            saveFile();
         }
 
 
