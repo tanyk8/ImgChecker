@@ -71,17 +71,7 @@ namespace ImgChecker
         {
             //TO DO LIST: 1. when duplicate file exist at location
 
-            string[] files = Directory.GetFiles(uploadPath);
 
-            img = (Image)this.FindName("imgi");
-
-            if (imageFiles.Count == 0)
-            {
-                setButtonStatus("btnPass", false);
-                setButtonStatus("btnReject", false);
-                MessageBox.Show("There are no image to be checked!\nUpload new image to continue");
-                return;
-            }
 
             int index = imageFiles.FindIndex(x => x.Contains(System.IO.Path.GetFileName(img.Source.ToString())));
             string sourceFile = uploadPath + "\\" + imageFiles.ElementAt(index);
