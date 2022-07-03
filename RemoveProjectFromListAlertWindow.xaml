@@ -1,10 +1,165 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿<Window x:Class="ImgChecker.RemoveProjectFromListAlertWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImgChecker"
+        mc:Ignorable="d"
+        Height="180" Width="400"
+        Title="Remove Project From List"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
+    <Window.Resources>
+        <!--RemoveButtonStyle #begin -->
+        <ControlTemplate x:Key="RemoveButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" TargetName="border" Value="#9E1A1A"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#9E1A1A"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="#FF6A6A6A"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF6A6A6A"/>
+                </Trigger>
+                <!--
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+                -->
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!-- RemoveButtonStyle #end -->
 
-namespace ImgChecker
-{
-    class RemoveProjectFromListAlertWindow
-    {
-    }
-}
+        <!-- CancelButtonStyle #begin -->
+        <ControlTemplate x:Key="CancelButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" TargetName="border" Value="#DADBDC"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#DADBDC"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="Silver"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="Silver"/>
+                </Trigger>
+                <!--
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+                -->
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!-- CancelButtonStyle #end -->
+    </Window.Resources>
+
+    <Border CornerRadius="5,5,5,5">
+        <Grid Style="{StaticResource BrightGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <StackPanel>
+                    <Image Style="{StaticResource QuestionIconStyle}" 
+                           HorizontalAlignment="Left" 
+                           Width="20" 
+                           Margin="15,15,0,0">
+                        <!--
+                        <Image.Source>
+                            <BitmapImage DecodePixelWidth="300" UriSource="/Resources/question-gray.png" />
+                        </Image.Source>
+                        -->
+                    </Image>
+                    <Label Style="{StaticResource LabelStyle}"
+                        Content="Are you sure you want to remove this project from the list?"
+                        Margin="35,-24,0,0"
+                        FontSize="12"
+                        FontWeight="DemiBold"/>
+                </StackPanel>
+
+                <Label Style="{StaticResource LabelStyle}"
+                       Content="Your project files will remain on your hard drive and will not be deleted."
+                       Margin="35,40,0,0"
+                       FontSize="10"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Button Template="{DynamicResource RemoveButtonStyle}"
+                        Style="{StaticResource MainButton}"
+                        BorderThickness="0"
+                        Background="#EB212E"
+                        Content="REMOVE FROM LIST"
+                        Foreground="#FFF1F1F1"
+                        FontSize="10"
+                        FontWeight="DemiBold"
+                        Height="25"
+                        Width="120"
+                        HorizontalAlignment="Left"
+                        Margin="80,0,0,0" 
+                        Click="removeFromListClick">
+                    <!--
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#f7f7f7"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+                    -->
+                </Button>
+
+                <Button Template="{DynamicResource CancelButtonStyle}"
+                        Style="{StaticResource SideButton}"
+                        BorderThickness="1"
+                        BorderBrush="#AEAEAE"
+                        Background="White"
+                        Content="CANCEL"
+                        Foreground="#FF6A6A6A"
+                        FontSize="10"
+                        FontWeight="DemiBold"
+                        Height="25"
+                        Width="100"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,80,0"
+                        Cursor="Hand"
+                        Click="cancelClick">
+                    <!--
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#f7f7f7"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+                    -->
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
+
+</Window>
