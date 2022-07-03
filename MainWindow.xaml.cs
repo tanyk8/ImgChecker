@@ -271,6 +271,46 @@ namespace ImgChecker
             updateRejectFolderList();
         }
 
+        private void updateRejectFolderList()
+        {
+            string[] folder = Directory.GetDirectories(rejectPath).Select(System.IO.Path.GetFileName).ToArray();
+
+
+            if (rejectFolderList.Count > 0)
+            {
+                rejectFolderList.Clear();
+            }
+
+
+            foreach (string foldername in folder)
+            {
+                string percentage = "0.00";
+                if (countSelectedCategory(foldername) != 0)
+                {
+                    percentage = (countSelectedCategory(foldername) / (double)rejectcount * 100).ToString("F");
+                }
+
+
+                rejectFolderList.Add(new RejectFolder() { rejectFolderName = System.IO.Path.GetFileName(foldername), rejectNum = "(" + countSelectedCategory(foldername) + " img) " + "(" + percentage + "%)" });
+            }
+
+
+
+            this.rejectListBox.ItemsSource = rejectFolderList;
+            rejectListBox.Items.Refresh();
+            this.rejectOverviewListBox.ItemsSource = rejectFolderList;
+            rejectOverviewListBox.Items.Refresh();
+            this.summaryListBox.ItemsSource = rejectFolderList;
+            summaryListBox.Items.Refresh();
+            this.rejectManageBox.ItemsSource = rejectFolderList;
+            rejectManageBox.Items.Refresh();
+
+            if (rejectFolderList.Count == 0 && currTabName == "Reject" || rejectFolderList.Count == 0 && RejectBox.Visibility.ToString() == "Visible")
+            {
+                MessageBox.Show("No reject category found! Please add a reject category!");
+            }
+        }
+
 
         //=================all page navigation====================
         private void btnAllPrev_Click(object sender, RoutedEventArgs e)
