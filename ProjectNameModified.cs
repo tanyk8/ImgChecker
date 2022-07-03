@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace ImgChecker
 {
     class ProjectNameModified
     {
+        public string proName { get; set; }
+        public string proModTime { get; set; }
+
     }
 }
