@@ -400,7 +400,57 @@ namespace ImgChecker
         }
 
         //here
+        private void btn_edit_project_location(object sender, RoutedEventArgs e)
+        {
 
+            //<UseWindowsForms>true</UseWindowsForms> put this so that it can work (double click project name at solution window)
+            //using System.Windows.Forms;
+
+            String selected_folder_path = "";
+
+            System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                selected_folder_path = fbd.SelectedPath;
+                edit_loc_txtbox.Text = selected_folder_path;
+
+            }
+
+        }
+
+        private void btn_cancelEdit(object sender, RoutedEventArgs e)
+        {
+
+            this.DialogResult = false; //dialog result
+            this.Close();
+
+        }
+
+        private void btn_saveEdit(object sender, RoutedEventArgs e)
+        {
+
+            if (isOk_editProjectName && isOk_editProjectLoc && isOk_editProjectDesc)
+            {
+
+                //pass back the data
+                pass_name = newProjectName;
+                pass_desc = newProjectDescription;
+                pass_loc = newProjectLocation;
+
+                this.DialogResult = true;
+                this.Close();
+
+            }
+            else
+            {
+                // display error message
+                MessageBoxResult result = MessageBox.Show("Please correct all errors before proceeding.");
+
+            }
+
+
+        }
 
     }
 }
