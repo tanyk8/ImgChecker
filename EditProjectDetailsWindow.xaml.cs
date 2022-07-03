@@ -220,20 +220,6 @@ namespace ImgChecker
 
             }
 
-            //if (isOk_editProjectNameLoc)
-            //{
-            //    edit_name_error.Foreground = Brushes.White;
-            //    edit_loc_error.Foreground = Brushes.White;
-            //}
-            //else
-            //{
-            //    edit_name_error.Foreground = Brushes.Red;
-            //    edit_loc_error.Foreground = Brushes.Red;
-
-            //    edit_name_error.Content = "This project name already exists in the selected folder";
-            //    edit_loc_error.Content = "This folder already has a project called "
-            //        + "\"" + edit_name_txtbox.Text + "\"";
-            //}
 
         }
 
