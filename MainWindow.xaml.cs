@@ -264,8 +264,16 @@ namespace ImgChecker
         }
 
 
-            //=================all page navigation====================
-            private void btnAllPrev_Click(object sender, RoutedEventArgs e)
+        private void btnReject_Click(object sender, RoutedEventArgs e)
+        {
+
+            RejectBox.Visibility = System.Windows.Visibility.Visible;
+            updateRejectFolderList();
+        }
+
+
+        //=================all page navigation====================
+        private void btnAllPrev_Click(object sender, RoutedEventArgs e)
             
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
