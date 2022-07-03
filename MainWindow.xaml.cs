@@ -281,21 +281,6 @@ namespace ImgChecker
                 rejectFolderList.Clear();
             }
 
-
-            foreach (string foldername in folder)
-            {
-                string percentage = "0.00";
-                if (countSelectedCategory(foldername) != 0)
-                {
-                    percentage = (countSelectedCategory(foldername) / (double)rejectcount * 100).ToString("F");
-                }
-
-
-                rejectFolderList.Add(new RejectFolder() { rejectFolderName = System.IO.Path.GetFileName(foldername), rejectNum = "(" + countSelectedCategory(foldername) + " img) " + "(" + percentage + "%)" });
-            }
-
-
-
             this.rejectListBox.ItemsSource = rejectFolderList;
             rejectListBox.Items.Refresh();
             this.rejectOverviewListBox.ItemsSource = rejectFolderList;
