@@ -307,6 +307,229 @@ namespace ImgChecker
                 MessageBox.Show("No reject category found! Please add a reject category!");
             }
         }
+        private void selectReject_doubleclick(object sender, RoutedEventArgs e)
+        {
+            if (rejectListBox.SelectedItem != null)
+            {
+                RejectFolder temp = (RejectFolder)rejectListBox.SelectedItem;
+                string selectedDFolder = temp.getRejectFolderName();
+                // string[] files = Directory.GetFiles(uploadPath);
+
+                img = (Image)this.FindName("imgi");
+
+                if (imageFiles.Count == 0)
+                {
+                    MessageBox.Show("No image found in the upload folder!");
+                    pfBtn = (Button)this.FindName("btnPass");
+                    pfBtn.IsEnabled = false;
+                    pfBtn = (Button)this.FindName("btnReject");
+                    pfBtn.IsEnabled = false;
+                    return;
+                }
+
+                int index = imageFiles.FindIndex(x => x.Contains(System.IO.Path.GetFileName(img.Source.ToString())));
+
+                string sourceFile = uploadPath + "\\" + imageFiles.ElementAt(index);
+                string destinationFile = rejectPath + "\\" + selectedDFolder + "\\" + imageFiles.ElementAt(index);
+
+                if (File.Exists(destinationFile) || checkReject(selectedDFolder, imageFiles.ElementAt(index)))
+                {
+                    MessageBoxResult mbresult;
+                    mbresult = MessageBox.Show("Duplicate file name found at target location! Would you like to rename the image file name?\n" + destinationFile, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (mbresult == MessageBoxResult.Yes)
+                    {
+                        string extpart = Path.GetExtension(destinationFile);
+                        string namepart = Path.GetFileNameWithoutExtension(destinationFile);
+
+                        bool repeat = true;
+                        int incNum = 1;
+
+                        do
+                        {
+                            if (File.Exists(rejectPath + "\\" + selectedDFolder + "\\" + namepart + " (1)" + extpart))
+                            {
+                                incNum++;
+                            }
+                            else
+                            {
+                                repeat = false;
+                                destinationFile = rejectPath + "\\" + selectedDFolder + "\\" + namepart + " (1)" + extpart;
+                            }
+                        } while (repeat);
+
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                if (File.Exists(sourceFile))
+                {
+                    fImageFiles.Add(new RejectFile(selectedDFolder, Path.GetFileName(destinationFile)));
+                    imageFiles.RemoveAt(index);
+                    for (int count = 0; count < 10; count++)
+                    {
+                        if (count < imageFiles.Count)
+                        {
+                            img = (Image)this.FindName("img" + (count + 1));
+                            img.Source = setImgSource(uploadPath + "\\" + imageFiles.ElementAt(count), "sub");
+
+                            if (count == 0)
+                            {
+                                img = (Image)this.FindName("imgi");
+                                img.Source = setImgSource(uploadPath + "\\" + imageFiles.ElementAt(count), "main");
+                            }
+                        }
+
+                        if (imageFiles.Count < 10 && count >= imageFiles.Count)
+                        {
+                            img = (Image)this.FindName("img" + (imageFiles.Count + 1).ToString());
+                            img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                        }
+                    }
+                }
+
+                try
+                {
+                    System.IO.File.Move(sourceFile, destinationFile);
+                }
+                catch
+                {
+                    MessageBox.Show("Error! The file is either missing or corrupted!");
+                    return;
+                }
+
+                counter = (Label)this.FindName("rejectCount");
+                rejectcount++;
+                numProgress++;
+                counter.Content = "Total Reject Count: " + rejectcount;
+                counter = (Label)this.FindName("progressCount");
+                counter.Content = "Overall progress: " + numProgress + "/" + totalNum;
+
+                if (currTabName == "Reject" && rejectFolderContent.Visibility.ToString() == "Visible")
+                {
+                    if (selectedDFolder == currRejectFolder)
+                    {
+                        //updateReject("load", "content");
+
+                        currRejectPage = 1;
+                        counter = (Label)this.FindName("rejectPage");
+                        counter.Content = currRejectPage;
+                        changeRejectPage(currRejectPage, "content", "");
+
+                        pfBtn = (Button)this.FindName("btnRejectPrev");
+                        pfBtn.IsEnabled = false;
+                        pfBtn = (Button)this.FindName("btnRejectFirst");
+                        pfBtn.IsEnabled = false;
+
+
+                        if (countSelectedCategory(temp.getRejectFolderName()) > 10)
+                        {
+                            pfBtn = (Button)this.FindName("btnRejectNext");
+                            pfBtn.IsEnabled = true;
+                            pfBtn = (Button)this.FindName("btnRejectLast");
+                            pfBtn.IsEnabled = true;
+                        }
+                        else
+                        {
+                            pfBtn = (Button)this.FindName("btnRejectNext");
+                            pfBtn.IsEnabled = false;
+                            pfBtn = (Button)this.FindName("btnRejectLast");
+                            pfBtn.IsEnabled = false;
+                        }
+                    }
+
+                }
+
+
+                if (imageFiles.Count == 0)
+                {
+                    img = (Image)this.FindName("img1");
+                    img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                    img = (Image)this.FindName("imgi");
+                    img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+
+                    MessageBox.Show("All image uploaded have been checked!");
+
+                    pfBtn = (Button)this.FindName("btnPass");
+                    pfBtn.IsEnabled = false;
+                    pfBtn = (Button)this.FindName("btnReject");
+                    pfBtn.IsEnabled = false;
+                    setButtonStatus("btnDeleteImg", false);
+
+                }
+                else
+                {
+                    currAllPage = 1;
+
+                    if (imageFiles.Count < 11)
+                    {
+                        pfBtn = (Button)this.FindName("btnAllNext");
+                        pfBtn.IsEnabled = false;
+                        pfBtn = (Button)this.FindName("btnAllLast");
+                        pfBtn.IsEnabled = false;
+                    }
+                    else
+                    {
+                        pfBtn = (Button)this.FindName("btnAllNext");
+                        pfBtn.IsEnabled = true;
+                        pfBtn = (Button)this.FindName("btnAllLast");
+                        pfBtn.IsEnabled = true;
+                    }
+
+                    pfBtn = (Button)this.FindName("btnAllPrev");
+                    pfBtn.IsEnabled = false;
+                    pfBtn = (Button)this.FindName("btnAllFirst");
+                    pfBtn.IsEnabled = false;
+
+                    counter = (Label)this.FindName("allPage");
+                    counter.Content = currAllPage;
+                }
+
+                if (pImageFiles.Count > 10)
+                {
+                    pfBtn = (Button)this.FindName("btnPassNext");
+                    pfBtn.IsEnabled = true;
+                    pfBtn = (Button)this.FindName("btnPassLast");
+                    pfBtn.IsEnabled = true;
+                }
+                updateRejectFolderList();
+
+                if (System.IO.Path.GetFileName(imgi.Source.ToString()) == "imagemissing.png")
+                {
+                    //disable and hide revert, pass and reject
+                    pfBtn = (Button)this.FindName("btnPass");
+                    pfBtn.IsEnabled = false;
+                    pfBtn = (Button)this.FindName("btnReject");
+                    pfBtn.IsEnabled = false;
+                    pfBtn = (Button)this.FindName("btnRevert");
+                    pfBtn.IsEnabled = false;
+                    setButtonStatus("btnDeleteImg", false);
+                    btnPass.Visibility = System.Windows.Visibility.Collapsed;
+                    btnReject.Visibility = System.Windows.Visibility.Collapsed;
+                    btnRevert.Visibility = System.Windows.Visibility.Collapsed;
+                    //show button
+                    pfBtn = (Button)this.FindName("btnInfo");
+                    pfBtn.IsEnabled = true;
+                    btnInfo.Visibility = System.Windows.Visibility.Visible;
+                    activemissingfile = "uploaded\\" + imageFiles.ElementAt(0);
+                    checkActive();
+                    img1.Opacity = 1;
+                }
+                else
+                {
+                    checkActive();
+                }
+
+
+                panzoom = (PanAndZoom)this.FindName("border");
+                panzoom.Reset();
+                RejectBox.Visibility = System.Windows.Visibility.Collapsed;
+                saveFile();
+            }
+        }
 
 
         //=================all page navigation====================
