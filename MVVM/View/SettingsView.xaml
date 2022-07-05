@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <!-- LightModeButtonStyle #begin -->
+        <!-- LightModeButtonStyle #start -->
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -64,7 +64,7 @@
         </Style>
         <!-- LightModeButtonStyle #end -->
 
-        <!-- DarkModeButtonStyle #begin -->
+        <!-- DarkModeButtonStyle #start -->
         <Style x:Key="FocusVisual1">
             <Setter Property="Control.Template">
                 <Setter.Value>

@@ -69,15 +69,10 @@
                     Margin="21,0,0,30">
 				<StackPanel HorizontalAlignment="Center"
                             VerticalAlignment="Center">
-					<Image Style="{StaticResource RecentProjectsIconStyle}"
+                    <Image Style="{StaticResource RecentProjectsIconStyle}"
                            VerticalAlignment="Top"
                            Width="60">
-						<!--
-                        <Image.Source>
-                            <BitmapImage DecodePixelWidth="300" UriSource="/Resources/cube-big.png" />
-                        </Image.Source>
-                        -->
-					</Image>
+                    </Image>
 					<TextBlock Style="{StaticResource TextBlockStyle}"
                                Margin="10"
                                TextAlignment="Center"
@@ -97,44 +92,13 @@
 			<Grid x:Name="s">
 				<StackPanel Orientation="Horizontal">
 
-					<Label Style="{StaticResource LabelStyle}"
+                    <Label Style="{StaticResource LabelStyle}"
                            Content="My Projects"
                            FontSize="30"
                            FontWeight="Bold"
                            Margin="17,40,0,0"/>
 
-					<!--
-                    <Button x:Name="btn_load"
-                            BorderThickness="0"
-                            Background="White"
-                            Content="LOAD"
-                            Foreground="Black"
-                            FontSize="18"
-                            FontWeight="Medium"
-                            Height="46"
-                            Width="151"
-                            Margin="540,40,0,0">
-                        <Button.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Style.Setters>
-                                    <Setter Property="CornerRadius" Value="2"/>
-                                    <Setter Property="Effect">
-                                        <Setter.Value>
-                                            <DropShadowEffect BlurRadius="12" Color="#DADBDC" Direction="-75" Opacity="0.8"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style.Setters>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Cursor" Value="Hand"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-                    -->
-
-					<Button Template="{DynamicResource NewButtonStyle}"
+                    <Button Template="{DynamicResource NewButtonStyle}"
                             Style="{StaticResource MainButton}"
                             Content="Add New Project"
                             BorderThickness="0"

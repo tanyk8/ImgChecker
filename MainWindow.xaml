@@ -501,11 +501,6 @@
                   Width="235"
                   Grid.Column="1"
                   Grid.Row="1">
-            <!--
-            <GroupBox.Header>
-                <TextBlock Style="{StaticResource TextBlockStyle}" Text=" Progress Tracker " FontSize="20" FontWeight="DemiBold"/>
-            </GroupBox.Header>
-            -->
 
             <Grid HorizontalAlignment="Center"
                   Height="250"
@@ -611,31 +606,7 @@
                     Width="240" 
                     Click="btnRevert_Click" 
                     x:Name="btnRevert"/>
-
-        <!--
-        <GroupBox Style="{StaticResource GroupBoxStyle}"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Bottom"
-                  Margin="0,0,0,60"
-                  Height="280"
-                  Width="235"
-                  Grid.Column="1"
-                  Grid.Row="1">
-            
-            <GroupBox.Header>
-                <TextBlock Style="{StaticResource TextBlockStyle}" Text=" Other Options " FontSize="20" FontWeight="DemiBold"/>
-            </GroupBox.Header>
-
-            <Grid HorizontalAlignment="Center"
-                  Height="250"
-                  VerticalAlignment="Center"
-                  Width="230">
-                <Label Style="{StaticResource LabelStyle}" Content="Other Options" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-
-                <Separator Margin="20,50,20,0" VerticalAlignment="Top"/>
-            </Grid>
-        </GroupBox>
-         -->
+        
 
         <TabControl Style="{StaticResource TabControlStyle}" Grid.Row="1" Grid.Column="2" SelectionChanged="TabControl_SelectionChanged" x:Name="tabcon">
             <TabItem Style="{DynamicResource TabItemStyle}" Header="All" FontSize="20" FontWeight="DemiBold" Padding="20,0" x:Name="alltab">
