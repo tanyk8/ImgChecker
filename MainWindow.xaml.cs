@@ -727,52 +727,6 @@ namespace ImgChecker
                 setButtonStatus("btnAllPrev", false);
                 setButtonStatus("btnAllFirst", false);
 
-                if (currTabName == "Pass")
-                {
-                    currPassPage = 1;
-                    counter = (Label)this.FindName("passPage");
-                    counter.Content = currPassPage;
-                    changePassPage(currPassPage);
-
-                    if (pImageFiles.Count < 11)
-                    {
-                        setButtonStatus("btnPassNext", false);
-                        setButtonStatus("btnPassLast", false);
-                    }
-                    else
-                    {
-                        setButtonStatus("btnPassNext", true);
-                        setButtonStatus("btnPassLast", true);
-                    }
-                    setButtonStatus("btnPassPrev", false);
-                    setButtonStatus("btnPassFirst", false);
-                }
-                else if (currTabName == "Reject" && rejectFolderContent.Visibility.ToString() == "Visible")
-                {
-                    if (currRejectFolder != "" && directory != "uploaded" && directory != "pass")
-                    {
-                        currRejectPage = 1;
-                        counter = (Label)this.FindName("rejectPage");
-                        counter.Content = currRejectPage;
-                        changeRejectPage(currRejectPage, "special1", "");
-
-                        setButtonStatus("btnRejectPrev", false);
-                        setButtonStatus("btnRejectFirst", false);
-
-
-                        if (countSelectedCategory(directory) > 10)
-                        {
-                            setButtonStatus("btnRejectNext", true);
-                            setButtonStatus("btnRejectLast", true);
-                        }
-                        else
-                        {
-                            setButtonStatus("btnRejectNext", false);
-                            setButtonStatus("btnRejectLast", false);
-                        }
-
-                    }
-                }
                 imgi.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
                 setButtonStatus("btnPass", false);
                 setButtonStatus("btnReject", false);
