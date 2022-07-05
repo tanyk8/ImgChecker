@@ -408,5 +408,47 @@ namespace ImgChecker
             checkActive();
             saveFile();
         }
+
+        public void dsw_closed(object sender, EventArgs e) //if user closes the window
+        {
+
+            //update modified time in txtfile
+            //get text file path
+            string path = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + "ProjectDetails.txt";
+
+            //updated content
+            string content = fn + ","
+                + fd + ","
+                + fp + ","
+                + fc + ","
+                + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            //update modified time in text file
+            //change old line with new updated line
+            lineChanger(content, path, projindex);
+
+        }
+
+        //ADD THIS
+        static void lineChanger(string newText, string fileName, int line_to_edit)
+        {
+            //function to replace old line with new line
+            string[] arrLine = File.ReadAllLines(fileName);
+            arrLine[line_to_edit] = newText;
+            File.WriteAllLines(fileName, arrLine);
+        }
+
+        public bool checkReject(string foldername, string filename)
+        {
+            bool dup = false;
+            for (int i = 0; i < fImageFiles.Count; i++)
+            {
+                if (fImageFiles.ElementAt(i).getRejectFolderName() == foldername && fImageFiles.ElementAt(i).getRejectFileName() == filename)
+                {
+                    dup = true;
+                }
+            }
+            return dup;
+        }
     }
 }
