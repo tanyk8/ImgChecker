@@ -531,6 +531,263 @@ namespace ImgChecker
             }
         }
 
+        private void btnDeleteImg_Click(object sender, RoutedEventArgs e)
+        {
+            string[] arraystring;
+            int index = 0;
+
+            MessageBoxResult mbresult;
+            mbresult = MessageBox.Show("Would you like to delete the image?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (mbresult == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            if (System.IO.Path.GetFileName(imgi.Source.ToString()) == "imagemissing.png")
+            {
+                arraystring = activemissingfile.Split('\\');
+                switch (arraystring[0])
+                {
+                    case "uploaded":
+                        index = imageFiles.IndexOf(arraystring[1]);
+                        imageFiles.RemoveAt(index);
+                        totalNum--;
+
+                        break;
+                    case "pass":
+                        index = pImageFiles.IndexOf(arraystring[1]);
+                        pImageFiles.RemoveAt(index);
+                        totalNum--;
+                        numProgress--;
+                        passcount--;
+
+                        break;
+                    case "reject":
+                        for (int i = 0; i < fImageFiles.Count; i++)
+                        {
+                            if (fImageFiles.ElementAt(i).getRejectFolderName() == arraystring[1] && fImageFiles.ElementAt(i).getRejectFileName() == arraystring[2])
+                            {
+                                index = i;
+                                break;
+                            }
+                        }
+                        fImageFiles.RemoveAt(index);
+                        totalNum--;
+                        numProgress--;
+                        rejectcount--;
+
+                        break;
+                }
+
+
+                updateCounter();
+                updateRejectFolderList();
+
+
+                currAllPage = 1;
+                counter = (Label)this.FindName("allPage");
+                counter.Content = currAllPage;
+                changePage(1);
+
+                if (imageFiles.Count < 11)
+                {
+                    setButtonStatus("btnAllNext", false);
+                    setButtonStatus("btnAllLast", false);
+                }
+                else
+                {
+                    setButtonStatus("btnAllNext", true);
+                    setButtonStatus("btnAllLast", true);
+                }
+                setButtonStatus("btnAllPrev", false);
+                setButtonStatus("btnAllFirst", false);
+
+                if (currTabName == "Pass")
+                {
+                    currPassPage = 1;
+                    counter = (Label)this.FindName("passPage");
+                    counter.Content = currPassPage;
+                    changePassPage(currPassPage);
+
+                    if (pImageFiles.Count < 11)
+                    {
+                        setButtonStatus("btnPassNext", false);
+                        setButtonStatus("btnPassLast", false);
+                    }
+                    else
+                    {
+                        setButtonStatus("btnPassNext", true);
+                        setButtonStatus("btnPassLast", true);
+                    }
+                    setButtonStatus("btnPassPrev", false);
+                    setButtonStatus("btnPassFirst", false);
+                }
+                else if (currTabName == "Reject" && rejectFolderContent.Visibility.ToString() == "Visible")
+                {
+                    if (currRejectFolder != "" && arraystring[0] == "reject")
+                    {
+                        currRejectPage = 1;
+                        counter = (Label)this.FindName("rejectPage");
+                        counter.Content = currRejectPage;
+                        changeRejectPage(currRejectPage, "special1", "");
+
+
+                        setButtonStatus("btnRejectPrev", false);
+                        setButtonStatus("btnRejectFirst", false);
+
+
+                        if (countSelectedCategory(arraystring[1]) > 10)
+                        {
+                            setButtonStatus("btnRejectNext", true);
+                            setButtonStatus("btnRejectLast", true);
+                        }
+                        else
+                        {
+                            setButtonStatus("btnRejectNext", false);
+                            setButtonStatus("btnRejectLast", false);
+                        }
+
+                    }
+                }
+                imgi.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                setButtonStatus("btnPass", false);
+                setButtonStatus("btnReject", false);
+                setButtonStatus("btnDeleteImg", false);
+                setButtonStatus("btnRevert", false);
+                btnRevert.Visibility = Visibility.Collapsed;
+                btnPass.Visibility = Visibility.Collapsed;
+                btnReject.Visibility = Visibility.Collapsed;
+                btnInfo.Visibility = Visibility.Collapsed;
+
+
+                //handle when in all page, set first image, check if still gt img
+                //handle when in pass/reject page, set imgi to noimg
+                saveFile();
+                checkActive();
+            }
+            else if (System.IO.Path.GetFileName(imgi.Source.ToString()) != "noimg.png")
+            {
+                string directory = "";
+                int indexx = 0;
+                directory = Path.GetFileName(Path.GetDirectoryName(imgi.Source.ToString()));
+                if (directory == "uploaded")
+                {
+                    File.Delete(uploadPath + "\\" + Path.GetFileName(imgi.Source.ToString()));
+                    indexx = imageFiles.IndexOf(Path.GetFileName(imgi.Source.ToString()));
+                    imageFiles.RemoveAt(indexx);
+                    totalNum--;
+                }
+                else if (directory == "pass")
+                {
+                    File.Delete(passPath + "\\" + Path.GetFileName(imgi.Source.ToString()));
+                    indexx = pImageFiles.IndexOf(Path.GetFileName(imgi.Source.ToString()));
+                    pImageFiles.RemoveAt(indexx);
+                    totalNum--;
+                    numProgress--;
+                    passcount--;
+                }
+                else
+                {
+                    File.Delete(rejectPath + "\\" + directory + "\\" + Path.GetFileName(imgi.Source.ToString()));
+                    for (int i = 0; i < fImageFiles.Count; i++)
+                    {
+                        if (fImageFiles.ElementAt(i).getRejectFolderName() == directory && fImageFiles.ElementAt(i).getRejectFileName() == Path.GetFileName(imgi.Source.ToString()))
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                    fImageFiles.RemoveAt(index);
+                    totalNum--;
+                    numProgress--;
+                    rejectcount--;
+
+                }
+
+                updateCounter();
+                updateRejectFolderList();
+
+
+                currAllPage = 1;
+                counter = (Label)this.FindName("allPage");
+                counter.Content = currAllPage;
+                changePage(1);
+
+                if (imageFiles.Count < 11)
+                {
+                    setButtonStatus("btnAllNext", false);
+                    setButtonStatus("btnAllLast", false);
+                }
+                else
+                {
+                    setButtonStatus("btnAllNext", true);
+                    setButtonStatus("btnAllLast", true);
+                }
+                setButtonStatus("btnAllPrev", false);
+                setButtonStatus("btnAllFirst", false);
+
+                if (currTabName == "Pass")
+                {
+                    currPassPage = 1;
+                    counter = (Label)this.FindName("passPage");
+                    counter.Content = currPassPage;
+                    changePassPage(currPassPage);
+
+                    if (pImageFiles.Count < 11)
+                    {
+                        setButtonStatus("btnPassNext", false);
+                        setButtonStatus("btnPassLast", false);
+                    }
+                    else
+                    {
+                        setButtonStatus("btnPassNext", true);
+                        setButtonStatus("btnPassLast", true);
+                    }
+                    setButtonStatus("btnPassPrev", false);
+                    setButtonStatus("btnPassFirst", false);
+                }
+                else if (currTabName == "Reject" && rejectFolderContent.Visibility.ToString() == "Visible")
+                {
+                    if (currRejectFolder != "" && directory != "uploaded" && directory != "pass")
+                    {
+                        currRejectPage = 1;
+                        counter = (Label)this.FindName("rejectPage");
+                        counter.Content = currRejectPage;
+                        changeRejectPage(currRejectPage, "special1", "");
+
+                        setButtonStatus("btnRejectPrev", false);
+                        setButtonStatus("btnRejectFirst", false);
+
+
+                        if (countSelectedCategory(directory) > 10)
+                        {
+                            setButtonStatus("btnRejectNext", true);
+                            setButtonStatus("btnRejectLast", true);
+                        }
+                        else
+                        {
+                            setButtonStatus("btnRejectNext", false);
+                            setButtonStatus("btnRejectLast", false);
+                        }
+
+                    }
+                }
+                imgi.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                setButtonStatus("btnPass", false);
+                setButtonStatus("btnReject", false);
+                setButtonStatus("btnDeleteImg", false);
+                setButtonStatus("btnRevert", false);
+
+                //handle when in all page, set first image, check if still gt img
+                //handle when in pass/reject page, set imgi to noimg
+                saveFile();
+                checkActive();
+
+
+            }
+        }
+
 
         //=================all page navigation====================
         private void btnAllPrev_Click(object sender, RoutedEventArgs e)
