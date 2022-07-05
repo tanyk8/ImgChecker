@@ -1059,6 +1059,46 @@ namespace ImgChecker
 
         //-----------------end pass page navigation-------------------
 
+        private void updateRejectFolderList()
+        {
+            string[] folder = Directory.GetDirectories(rejectPath).Select(System.IO.Path.GetFileName).ToArray();
+
+
+            if (rejectFolderList.Count > 0)
+            {
+                rejectFolderList.Clear();
+            }
+
+
+            foreach (string foldername in folder)
+            {
+                string percentage = "0.00";
+                if (countSelectedCategory(foldername) != 0)
+                {
+                    percentage = (countSelectedCategory(foldername) / (double)rejectcount * 100).ToString("F");
+                }
+
+
+                rejectFolderList.Add(new RejectFolder() { rejectFolderName = System.IO.Path.GetFileName(foldername), rejectNum = "(" + countSelectedCategory(foldername) + " img) " + "(" + percentage + "%)" });
+            }
+
+
+
+            this.rejectListBox.ItemsSource = rejectFolderList;
+            rejectListBox.Items.Refresh();
+            this.rejectOverviewListBox.ItemsSource = rejectFolderList;
+            rejectOverviewListBox.Items.Refresh();
+            this.summaryListBox.ItemsSource = rejectFolderList;
+            summaryListBox.Items.Refresh();
+            this.rejectManageBox.ItemsSource = rejectFolderList;
+            rejectManageBox.Items.Refresh();
+
+            if (rejectFolderList.Count == 0 && currTabName == "Reject" || rejectFolderList.Count == 0 && RejectBox.Visibility.ToString() == "Visible")
+            {
+                MessageBox.Show("No reject category found! Please add a reject category!");
+            }
+        }
+
         //=================pass page navigation====================
         private void btnPassPrev_Click(object sender, RoutedEventArgs e)
         {
@@ -1399,6 +1439,45 @@ namespace ImgChecker
 
         //-----------------end pass page navigation-------------------
 
+        private void btnShowSummary_Click(object sender, RoutedEventArgs e)
+        {
+            updateRejectFolderList();
+            updateSummaryCount();
+            SummaryBox.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void closeSummary_Click(object sender, RoutedEventArgs e)
+        {
+            SummaryBox.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void updateSummaryCount()
+        {
+            string passpercent = "", rejectpercent = "";
+            if (passcount != 0)
+            {
+                passpercent = ((passcount / (double)totalNum) * 100).ToString("F");
+            }
+            else
+            {
+                passpercent = "0.00";
+            }
+            if (rejectcount != 0)
+            {
+                rejectpercent = ((rejectcount / (double)totalNum) * 100).ToString("F");
+            }
+            else
+            {
+                rejectpercent = "0.00";
+            }
+
+
+
+            summary_total.Content = "Total Image: " + totalNum;
+            summary_totalinspect.Content = "Total Inspected: " + numProgress;
+            summary_pass.Content = "Total pass: " + passcount + " (" + passpercent + "%)";
+            summary_fail.Content = "Total reject: " + rejectcount + " (" + rejectpercent + "%)";
+        }
 
         public void saveFile()
         {
@@ -1461,6 +1540,18 @@ namespace ImgChecker
             opnmenu.Show();
 
             this.Close();
+        }
+
+        private void updateCounter()
+        {
+            counter = (Label)this.FindName("progressCount");
+            counter.Content = "Overall progress: " + numProgress + "/" + totalNum;
+
+            counter = (Label)this.FindName("passCount");
+            counter.Content = "Total Pass Count: " + passcount;
+
+            counter = (Label)this.FindName("rejectCount");
+            counter.Content = "Total Reject Count: " + rejectcount;
         }
 
         public void handleImageMissing(string selectedImage)
