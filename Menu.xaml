@@ -33,16 +33,11 @@
                                        Margin="70,0,0,0"
                                        FontFamily="/Fonts/#Poppins"/>
 
-								<Image Style="{StaticResource ProjectsIconStyle}"
+                                <Image Style="{StaticResource ProjectsIconStyle}"
                                        HorizontalAlignment="Center"
                                        Width="20"
                                        Margin="0,0,180,0">
-									<!--
-                                    <Image.Source>
-                                        <BitmapImage DecodePixelWidth="300" UriSource="/Resources/cube-gray.png" />
-                                    </Image.Source>
-                                    -->
-								</Image>
+                                </Image>
 
 							</Grid>
 						</ControlTemplate>
@@ -109,16 +104,11 @@
                                        Margin="70,0,0,0"
                                        FontFamily="/Fonts/#Poppins"/>
 
-								<Image Style="{StaticResource LearnIconStyle}"
+                                <Image Style="{StaticResource LearnIconStyle}"
                                        HorizontalAlignment="Center"
                                        Width="20"
                                        Margin="0,0,180,0">
-									<!--
-                                    <Image.Source>
-                                        <BitmapImage DecodePixelWidth="300" UriSource="/Resources/grad-gray.png" />
-                                    </Image.Source>
-                                    -->
-								</Image>
+                                </Image>
 
 							</Grid>
 						</ControlTemplate>
@@ -185,16 +175,11 @@
                                        Margin="70,0,0,0"
                                        FontFamily="/Fonts/#Poppins"/>
 
-								<Image Style="{StaticResource SettingsIconStyle}"
+                                <Image Style="{StaticResource SettingsIconStyle}"
                                        HorizontalAlignment="Center"
                                        Width="20"
                                        Margin="0,0,180,0">
-									<!--
-                                    <Image.Source>
-                                        <BitmapImage DecodePixelWidth="300" UriSource="/Resources/settings-gray.png" />
-                                    </Image.Source>
-                                    -->
-								</Image>
+                                </Image>
 
 							</Grid>
 						</ControlTemplate>
@@ -261,22 +246,14 @@
 					<ColumnDefinition Width="81*"/>
 				</Grid.ColumnDefinitions>
 				<StackPanel Grid.ColumnSpan="2">
-					<RadioButton Content="Projects"
+                    <RadioButton Content="Projects"
                              Height="60"
                              FontSize="19"
                              Style="{StaticResource MenuButton_Projects_Theme}"
                              IsChecked="True"
                              Command="{Binding ProjectsViewCommand}"/>
-					<!--
-                    <RadioButton Content="Learn"
-                             Height="60"
-                             Margin="0,10,0,0"
-                             FontSize="19" 
-                             Style="{StaticResource MenuButton_Learn_Theme}"
-                             Command="{Binding LearnViewCommand}"/>
-                    -->
 
-					<RadioButton Content="Theme"
+                    <RadioButton Content="Theme"
                              Height="60"
                              Margin="0,10,0,0"
                              FontSize="19"
