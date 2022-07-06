@@ -15,7 +15,18 @@ ImgChecker desktop application<br/>
 2. Find the downloaded zip file and unzip it inside a folder<br/>
 3. Double click the exe file and launch the program<br/><br/>
 
-==Important notes==<br/>
+==Important Notes==<br/>
 -It is advisable to avoid using image file name with duplicate names within the same project to avoid possible problems.<br/>
 -The application only supports the Windows platform. The application has been tested on Windows 7, 8 and 10. Windows 11 was not tested but it is expected to work.<br/>
--If any unexpected behaviour occurs, try to restart the program.
+-If any unexpected behaviour occurs, try to restart the program.<br/><br/>
+
+==Known Bugs==<br/>
+-Currently none<br/><br/>
+
+==Work in progress==<br/>
+-Further improving performance and fixing any identified bugs<br/><br/>
+
+==Planned Features==<br/>
+-Currently none
+
+
