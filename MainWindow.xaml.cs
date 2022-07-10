@@ -1321,142 +1321,27 @@ namespace ImgChecker
         //=================pass page navigation====================
         private void btnPassPrev_Click(object sender, RoutedEventArgs e)
         {
-            counter = (Label)this.FindName("passPage");
-            currPassPage--;
-            counter.Content = currPassPage;
 
-            if (currPassPage != 1 || pImageFiles.Count > 10)
-            {
-                pfBtn = (Button)this.FindName("btnPassNext");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnPassLast");
-                pfBtn.IsEnabled = true;
-            }
-
-            if (currPassPage == 1)
-            {
-                pfBtn = (Button)this.FindName("btnPassPrev");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnPassFirst");
-                pfBtn.IsEnabled = false;
-            }
-
-            changePassPage(currPassPage);
         }
 
         private void btnPassNext_Click(object sender, RoutedEventArgs e)
         {
-            counter = (Label)this.FindName("passPage");
-            currPassPage++;
-            counter.Content = currPassPage;
 
-            if (currPassPage != 1)
-            {
-                pfBtn = (Button)this.FindName("btnPassPrev");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnPassFirst");
-                pfBtn.IsEnabled = true;
-            }
-            else
-            {
-                pfBtn = (Button)this.FindName("btnPassNext");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnPassLast");
-                pfBtn.IsEnabled = false;
-            }
-
-            int finalpage = (pImageFiles.Count - 1) / 10 + 1;
-
-            if (currPassPage == finalpage)
-            {
-                pfBtn = (Button)this.FindName("btnPassNext");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnPassLast");
-                pfBtn.IsEnabled = false;
-            }
-            else
-            {
-                pfBtn = (Button)this.FindName("btnPassNext");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnPassLast");
-                pfBtn.IsEnabled = true;
-            }
-
-            changePassPage(currPassPage);
         }
 
         private void changePassPage(int currPage)
         {
-            int num = 1;
-            for (int count = pImageFiles.Count - ((currPage - 1) * 10 + 1); count >= pImageFiles.Count - (currPage * 10); count--)
-            {
-                img = (Image)this.FindName("Pimg" + num);
 
-                if (count >= 0)
-                {
-                    img.Source = setImgSource(passPath + "\\" + pImageFiles.ElementAt(count), "sub");
-                }
-                else
-                {
-                    img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
-                }
-                num++;
-            }
-            checkActive();
         }
 
         private void btnPassFirst_Click(object sender, RoutedEventArgs e)
         {
-            counter = (Label)this.FindName("passPage");
-            currPassPage = 1;
-            counter.Content = currPassPage;
 
-
-
-
-            if (currPassPage != 1 || pImageFiles.Count > 10)
-            {
-                pfBtn = (Button)this.FindName("btnPassNext");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnPassLast");
-                pfBtn.IsEnabled = true;
-            }
-
-            if (currPassPage == 1)
-            {
-                pfBtn = (Button)this.FindName("btnPassPrev");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnPassFirst");
-                pfBtn.IsEnabled = false;
-            }
-
-
-            changePassPage(currPassPage);
         }
 
         private void btnPassLast_Click(object sender, RoutedEventArgs e)
         {
-            counter = (Label)this.FindName("passPage");
-            currPassPage = (pImageFiles.Count - 1) / 10 + 1;
-            counter.Content = currPassPage;
 
-            if (currPassPage != 1)
-            {
-                pfBtn = (Button)this.FindName("btnPassPrev");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnPassFirst");
-                pfBtn.IsEnabled = true;
-            }
-
-            if (pImageFiles.Count < currPassPage * 10 + 1)
-            {
-                pfBtn = (Button)this.FindName("btnPassNext");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnPassLast");
-                pfBtn.IsEnabled = false;
-            }
-
-            changePassPage(currPassPage);
         }
 
         //-----------------end pass page navigation-------------------
