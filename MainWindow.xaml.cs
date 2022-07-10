@@ -620,116 +620,22 @@ namespace ImgChecker
         //=================all page navigation====================
         private void btnAllPrev_Click(object sender, RoutedEventArgs e)
         {
-            counter = (Label)this.FindName("allPage");
-            currAllPage--;
-            counter.Content = currAllPage;
 
-            if (currAllPage != 1 || imageFiles.Count > 10)
-            {
-                pfBtn = (Button)this.FindName("btnAllNext");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnAllLast");
-                pfBtn.IsEnabled = true;
-            }
-
-            if (currAllPage == 1)
-            {
-                pfBtn = (Button)this.FindName("btnAllPrev");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnAllFirst");
-                pfBtn.IsEnabled = false;
-            }
-
-            changePage(currAllPage);
         }
 
         private void btnAllNext_Click(object sender, RoutedEventArgs e)
         {
-            counter = (Label)this.FindName("allPage");
-            currAllPage++;
-            counter.Content = currAllPage;
 
-            if (currAllPage != 1)
-            {
-                pfBtn = (Button)this.FindName("btnAllPrev");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnAllFirst");
-                pfBtn.IsEnabled = true;
-            }
-            else
-            {
-                pfBtn = (Button)this.FindName("btnAllPrev");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnAllFirst");
-                pfBtn.IsEnabled = false;
-            }
-
-            int finalpage = (imageFiles.Count - 1) / 10 + 1;
-
-            if (currAllPage == finalpage)
-            {
-                pfBtn = (Button)this.FindName("btnAllNext");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnAllLast");
-                pfBtn.IsEnabled = false;
-            }
-            else
-            {
-                pfBtn = (Button)this.FindName("btnAllNext");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnAllLast");
-                pfBtn.IsEnabled = true;
-            }
-
-            changePage(currAllPage);
         }
 
         private void changePage(int currPage)
         {
-            int num = 1;
-            for (int count = currPage * 10 - 10; count < currPage * 10; count++)
-            {
-                img = (Image)this.FindName("img" + num);
 
-                if (count < imageFiles.Count)
-                {
-                    img.Source = setImgSource(uploadPath + "\\" + imageFiles.ElementAt(count), "sub");
-                }
-                else
-                {
-                    img = (Image)this.FindName("img" + num);
-                    img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
-                }
-                num++;
-            }
-            checkActive();
         }
 
         private void btnAllFirst_Click(object sender, RoutedEventArgs e)
         {
-            counter = (Label)this.FindName("allPage");
-            currAllPage = 1;
-            counter.Content = currAllPage;
 
-
-            if (currAllPage != 1 || imageFiles.Count > 10)
-            {
-                pfBtn = (Button)this.FindName("btnAllNext");
-                pfBtn.IsEnabled = true;
-                pfBtn = (Button)this.FindName("btnAllLast");
-                pfBtn.IsEnabled = true;
-            }
-
-            if (currAllPage == 1)
-            {
-                pfBtn = (Button)this.FindName("btnAllPrev");
-                pfBtn.IsEnabled = false;
-                pfBtn = (Button)this.FindName("btnAllFirst");
-                pfBtn.IsEnabled = false;
-            }
-
-
-            changePage(currAllPage);
         }
 
         private void btnAllLast_Click(object sender, RoutedEventArgs e)
@@ -753,13 +659,6 @@ namespace ImgChecker
                 pfBtn = (Button)this.FindName("btnAllLast");
                 pfBtn.IsEnabled = false;
             }
-            //else
-            //{
-            //    pfBtn = (Button)this.FindName("btnAllNext");
-            //    pfBtn.IsEnabled = true;
-            //    pfBtn = (Button)this.FindName("btnAllLast");
-            //    pfBtn.IsEnabled = true;
-            //}
 
             changePage(currAllPage);
         }
