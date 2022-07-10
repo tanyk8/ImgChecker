@@ -620,22 +620,116 @@ namespace ImgChecker
         //=================all page navigation====================
         private void btnAllPrev_Click(object sender, RoutedEventArgs e)
         {
+            counter = (Label)this.FindName("allPage");
+            currAllPage--;
+            counter.Content = currAllPage;
 
+            if (currAllPage != 1 || imageFiles.Count > 10)
+            {
+                pfBtn = (Button)this.FindName("btnAllNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnAllLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (currAllPage == 1)
+            {
+                pfBtn = (Button)this.FindName("btnAllPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnAllFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+            changePage(currAllPage);
         }
 
         private void btnAllNext_Click(object sender, RoutedEventArgs e)
         {
+            counter = (Label)this.FindName("allPage");
+            currAllPage++;
+            counter.Content = currAllPage;
 
+            if (currAllPage != 1)
+            {
+                pfBtn = (Button)this.FindName("btnAllPrev");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnAllFirst");
+                pfBtn.IsEnabled = true;
+            }
+            else
+            {
+                pfBtn = (Button)this.FindName("btnAllPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnAllFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+            int finalpage = (imageFiles.Count - 1) / 10 + 1;
+
+            if (currAllPage == finalpage)
+            {
+                pfBtn = (Button)this.FindName("btnAllNext");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnAllLast");
+                pfBtn.IsEnabled = false;
+            }
+            else
+            {
+                pfBtn = (Button)this.FindName("btnAllNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnAllLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            changePage(currAllPage);
         }
 
         private void changePage(int currPage)
         {
+            int num = 1;
+            for (int count = currPage * 10 - 10; count < currPage * 10; count++)
+            {
+                img = (Image)this.FindName("img" + num);
 
+                if (count < imageFiles.Count)
+                {
+                    img.Source = setImgSource(uploadPath + "\\" + imageFiles.ElementAt(count), "sub");
+                }
+                else
+                {
+                    img = (Image)this.FindName("img" + num);
+                    img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                }
+                num++;
+            }
+            checkActive();
         }
 
         private void btnAllFirst_Click(object sender, RoutedEventArgs e)
         {
+            counter = (Label)this.FindName("allPage");
+            currAllPage = 1;
+            counter.Content = currAllPage;
 
+
+            if (currAllPage != 1 || imageFiles.Count > 10)
+            {
+                pfBtn = (Button)this.FindName("btnAllNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnAllLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (currAllPage == 1)
+            {
+                pfBtn = (Button)this.FindName("btnAllPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnAllFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+
+            changePage(currAllPage);
         }
 
         private void btnAllLast_Click(object sender, RoutedEventArgs e)
@@ -659,6 +753,13 @@ namespace ImgChecker
                 pfBtn = (Button)this.FindName("btnAllLast");
                 pfBtn.IsEnabled = false;
             }
+            //else
+            //{
+            //    pfBtn = (Button)this.FindName("btnAllNext");
+            //    pfBtn.IsEnabled = true;
+            //    pfBtn = (Button)this.FindName("btnAllLast");
+            //    pfBtn.IsEnabled = true;
+            //}
 
             changePage(currAllPage);
         }
@@ -1321,27 +1422,142 @@ namespace ImgChecker
         //=================pass page navigation====================
         private void btnPassPrev_Click(object sender, RoutedEventArgs e)
         {
+            counter = (Label)this.FindName("passPage");
+            currPassPage--;
+            counter.Content = currPassPage;
 
+            if (currPassPage != 1 || pImageFiles.Count > 10)
+            {
+                pfBtn = (Button)this.FindName("btnPassNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnPassLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (currPassPage == 1)
+            {
+                pfBtn = (Button)this.FindName("btnPassPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnPassFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+            changePassPage(currPassPage);
         }
 
         private void btnPassNext_Click(object sender, RoutedEventArgs e)
         {
+            counter = (Label)this.FindName("passPage");
+            currPassPage++;
+            counter.Content = currPassPage;
 
+            if (currPassPage != 1)
+            {
+                pfBtn = (Button)this.FindName("btnPassPrev");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnPassFirst");
+                pfBtn.IsEnabled = true;
+            }
+            else
+            {
+                pfBtn = (Button)this.FindName("btnPassNext");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnPassLast");
+                pfBtn.IsEnabled = false;
+            }
+
+            int finalpage = (pImageFiles.Count - 1) / 10 + 1;
+
+            if (currPassPage == finalpage)
+            {
+                pfBtn = (Button)this.FindName("btnPassNext");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnPassLast");
+                pfBtn.IsEnabled = false;
+            }
+            else
+            {
+                pfBtn = (Button)this.FindName("btnPassNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnPassLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            changePassPage(currPassPage);
         }
 
         private void changePassPage(int currPage)
         {
+            int num = 1;
+            for (int count = pImageFiles.Count - ((currPage - 1) * 10 + 1); count >= pImageFiles.Count - (currPage * 10); count--)
+            {
+                img = (Image)this.FindName("Pimg" + num);
 
+                if (count >= 0)
+                {
+                    img.Source = setImgSource(passPath + "\\" + pImageFiles.ElementAt(count), "sub");
+                }
+                else
+                {
+                    img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                }
+                num++;
+            }
+            checkActive();
         }
 
         private void btnPassFirst_Click(object sender, RoutedEventArgs e)
         {
+            counter = (Label)this.FindName("passPage");
+            currPassPage = 1;
+            counter.Content = currPassPage;
 
+
+
+
+            if (currPassPage != 1 || pImageFiles.Count > 10)
+            {
+                pfBtn = (Button)this.FindName("btnPassNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnPassLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (currPassPage == 1)
+            {
+                pfBtn = (Button)this.FindName("btnPassPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnPassFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+
+            changePassPage(currPassPage);
         }
 
         private void btnPassLast_Click(object sender, RoutedEventArgs e)
         {
+            counter = (Label)this.FindName("passPage");
+            currPassPage = (pImageFiles.Count - 1) / 10 + 1;
+            counter.Content = currPassPage;
 
+            if (currPassPage != 1)
+            {
+                pfBtn = (Button)this.FindName("btnPassPrev");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnPassFirst");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (pImageFiles.Count < currPassPage * 10 + 1)
+            {
+                pfBtn = (Button)this.FindName("btnPassNext");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnPassLast");
+                pfBtn.IsEnabled = false;
+            }
+
+            changePassPage(currPassPage);
         }
 
         //-----------------end pass page navigation-------------------
@@ -1349,27 +1565,196 @@ namespace ImgChecker
         //=================reject page navigation====================
         private void btnRejectPrev_Click(object sender, RoutedEventArgs e)
         {
+            RejectFolder temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+            string foldernameselected = temp.getRejectFolderName();
 
+            counter = (Label)this.FindName("rejectPage");
+            currRejectPage--;
+            counter.Content = currRejectPage;
+
+            if (currRejectPage != 1 || countSelectedCategory(foldernameselected) > 10)
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (currRejectPage == 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+            changeRejectPage(currRejectPage, "overview", "");
         }
 
         private void btnRejectNext_Click(object sender, RoutedEventArgs e)
         {
+            RejectFolder temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+            string foldernameselected = temp.getRejectFolderName();
 
+            counter = (Label)this.FindName("rejectPage");
+            currRejectPage++;
+            counter.Content = currRejectPage;
+
+            if (currRejectPage != 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = true;
+            }
+            else
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+            int finalpage = (countSelectedCategory(foldernameselected) - 1) / 10 + 1;
+
+            if (currRejectPage == finalpage)
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = false;
+            }
+            else
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            changeRejectPage(currRejectPage, "overview", "");
         }
 
         private void changeRejectPage(int currPage, string caseOption, string specialcase)
         {
+            RejectFolder temp;
+            string foldernameselected = "";
+            if (rejectOverviewListBox.SelectedItem != null || rejectListBox.SelectedItem != null)
+            {
+                if (caseOption == "overview")
+                {
+                    temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+                    foldernameselected = temp.getRejectFolderName();
+                }
+                else if (caseOption == "content")
+                {
+                    temp = (RejectFolder)rejectListBox.SelectedItem;
+                    foldernameselected = temp.getRejectFolderName();
+                }
+            }
 
+            if (caseOption == "special")
+            {
+                foldernameselected = specialcase;
+            }
+
+            if (caseOption == "special1")
+            {
+                foldernameselected = currRejectFolder;
+            }
+
+            int num = 1;
+
+            List<RejectFile> tempList = new List<RejectFile>();
+
+            for (int i = 0; i < fImageFiles.Count; i++)
+            {
+                if (fImageFiles.ElementAt(i).getRejectFolderName() == foldernameselected)
+                {
+                    tempList.Add(new RejectFile(foldernameselected, fImageFiles.ElementAt(i).getRejectFileName()));
+                }
+            }
+
+
+            for (int count = countSelectedCategory(foldernameselected) - 1; count >= countSelectedCategory(foldernameselected) - (currRejectPage * 10); count--)
+            {
+
+                img = (Image)this.FindName("Fimg" + num);
+
+                if (count >= 0)
+                {
+                    string fullpath = rejectPath + "\\" + tempList.ElementAt(count).getRejectFolderName() + "\\" + tempList.ElementAt(count).getRejectFileName();
+                    img.Source = setImgSource(fullpath, "sub");
+                    num++;
+
+                }
+
+                else
+                {
+                    img.Source = new BitmapImage(new Uri("/Resources/noimg.png", UriKind.Relative));
+                    num++;
+                }
+
+            }
+            checkActive();
         }
 
         private void btnRejectFirst_Click(object sender, RoutedEventArgs e)
         {
+            RejectFolder temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+            string foldernameselected = temp.getRejectFolderName();
 
+            counter = (Label)this.FindName("rejectPage");
+            currRejectPage = 1;
+            counter.Content = currRejectPage;
+
+
+            if (currRejectPage != 1 || countSelectedCategory(foldernameselected) > 10)
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (currRejectPage == 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = false;
+            }
+
+
+            changeRejectPage(currRejectPage, "overview", "");
         }
 
         private void btnRejectLast_Click(object sender, RoutedEventArgs e)
         {
+            RejectFolder temp = (RejectFolder)rejectOverviewListBox.SelectedItem;
+            string foldernameselected = temp.getRejectFolderName();
 
+            counter = (Label)this.FindName("rejectPage");
+            currRejectPage = (countSelectedCategory(foldernameselected) - 1) / 10 + 1;
+            counter.Content = currRejectPage;
+
+            if (currRejectPage != 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectPrev");
+                pfBtn.IsEnabled = true;
+                pfBtn = (Button)this.FindName("btnRejectFirst");
+                pfBtn.IsEnabled = true;
+            }
+
+            if (countSelectedCategory(foldernameselected) < currRejectPage * 10 + 1)
+            {
+                pfBtn = (Button)this.FindName("btnRejectNext");
+                pfBtn.IsEnabled = false;
+                pfBtn = (Button)this.FindName("btnRejectLast");
+                pfBtn.IsEnabled = false;
+            }
+
+            changeRejectPage(currRejectPage, "overview", "");
         }
 
         //-----------------end pass page navigation-------------------
